@@ -1,0 +1,40 @@
+# Objects and other standard compilation artifacts.
+*.o
+*.so
+build/
+Debug/
+*Dbg/
+*Rel/
+
+# Visual Studio.
+*.plg
+*.opt
+*.vbw
+*.ncb
+*.aps
+
+# eMbedded Visual Studio.
+*.vco
+*.vcb
+*.vcl
+
+# OpenWatcom
+*.lk1
+*.map
+*.mk
+*.mk1
+*.sym
+*.err
+*.smp
+
+# Object and executable files.
+*.obj
+*.exe
+build/
+
+# Source Insight
+*.si4project/
+
+# Misc.
+.DS_Store
+Thumbs.db
