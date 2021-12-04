@@ -1,0 +1,3 @@
+[submodule "lib/lisp"]
+	path = lib/lisp
+	url = https://github.com/nathanpc/bamboo-lisp.git
