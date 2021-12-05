@@ -3,7 +3,7 @@
 	Bamboo Lisp IDE
 </h1>
 
-A very powerful IDE to confortably work with the
+A very powerful IDE to comfortably work with the
 [Bamboo Lisp](https://github.com/nathanpc/bamboo-lisp) implementation.
 
 
