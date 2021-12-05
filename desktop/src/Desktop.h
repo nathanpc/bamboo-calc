@@ -16,7 +16,7 @@
 	#error include 'stdafx.h' before including this file for PCH
 #endif
 
-#include "resource.h"
+#include "../resource.h"
 
 /**
  * Bamboo IDE application instance.

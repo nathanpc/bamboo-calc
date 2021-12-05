@@ -12,7 +12,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "resource.h"
+#include "../resource.h"
 
 /**
  * Application's main dialog window.
