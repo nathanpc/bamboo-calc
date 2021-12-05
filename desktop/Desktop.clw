@@ -7,7 +7,7 @@ LastTemplate=CDialog
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "Desktop.h"
 
-ClassCount=4
+ClassCount=3
 Class1=CBambooApp
 Class2=CMainDlg
 Class3=CAboutDlg
@@ -27,9 +27,10 @@ Filter=N
 
 [CLS:CMainDlg]
 Type=0
-HeaderFile=MainDlg.h
-ImplementationFile=MainDlg.cpp
-Filter=D
+HeaderFile=src\maindlg.h
+ImplementationFile=src\maindlg.cpp
+BaseClass=CDialog
+LastObject=CMainDlg
 
 [CLS:CAboutDlg]
 Type=0
@@ -57,7 +58,7 @@ Class=CMainDlg
 
 [DLG:IDD_DESKTOP_DIALOG (English (U.S.))]
 Type=1
-Class=?
+Class=CMainDlg
 ControlCount=0
 
 [DLG:IDD_ABOUTBOX (English (U.S.))]

@@ -1,5 +1,9 @@
-// MainDlg.h : header file
-//
+/**
+ * MainDlg.h
+ * Main application's dialog window.
+ *
+ * @author Nathan Campos <nathan@innoveworkshop.com>
+ */
 
 #if !defined(AFX_MAINDLG_H__05E6DABF_121D_4928_8E91_0272B8D598F4__INCLUDED_)
 #define AFX_MAINDLG_H__05E6DABF_121D_4928_8E91_0272B8D598F4__INCLUDED_
@@ -8,14 +12,14 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-/////////////////////////////////////////////////////////////////////////////
-// CMainDlg dialog
+#include "resource.h"
 
-class CMainDlg : public CDialog
-{
-// Construction
+/**
+ * Application's main dialog window.
+ */
+class CMainDlg : public CDialog {
 public:
-	CMainDlg(CWnd* pParent = NULL);	// standard constructor
+	CMainDlg(CWnd* pParent = NULL);
 
 // Dialog Data
 	//{{AFX_DATA(CMainDlg)
@@ -32,6 +36,8 @@ public:
 // Implementation
 protected:
 	HICON m_hIcon;
+
+	void ShowAboutDialog();
 
 	// Generated message map functions
 	//{{AFX_MSG(CMainDlg)

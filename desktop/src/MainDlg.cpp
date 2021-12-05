@@ -1,9 +1,14 @@
-// MainDlg.cpp : implementation file
-//
+/**
+ * MainDlg.cpp
+ * Main application's dialog window.
+ *
+ * @author Nathan Campos <nathan@innoveworkshop.com>
+ */
 
 #include "stdafx.h"
 #include "Desktop.h"
 #include "MainDlg.h"
+#include "AboutDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -11,70 +16,36 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-/////////////////////////////////////////////////////////////////////////////
-// CAboutDlg dialog used for App About
-
-class CAboutDlg : public CDialog
-{
-public:
-	CAboutDlg();
-
-// Dialog Data
-	//{{AFX_DATA(CAboutDlg)
-	enum { IDD = IDD_ABOUTBOX };
-	//}}AFX_DATA
-
-	// ClassWizard generated virtual function overrides
-	//{{AFX_VIRTUAL(CAboutDlg)
-	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
-	//}}AFX_VIRTUAL
-
-// Implementation
-protected:
-	//{{AFX_MSG(CAboutDlg)
-	//}}AFX_MSG
-	DECLARE_MESSAGE_MAP()
-};
-
-CAboutDlg::CAboutDlg() : CDialog(CAboutDlg::IDD)
-{
-	//{{AFX_DATA_INIT(CAboutDlg)
-	//}}AFX_DATA_INIT
-}
-
-void CAboutDlg::DoDataExchange(CDataExchange* pDX)
-{
-	CDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CAboutDlg)
-	//}}AFX_DATA_MAP
-}
-
-BEGIN_MESSAGE_MAP(CAboutDlg, CDialog)
-	//{{AFX_MSG_MAP(CAboutDlg)
-		// No message handlers
-	//}}AFX_MSG_MAP
-END_MESSAGE_MAP()
-
-/////////////////////////////////////////////////////////////////////////////
-// CMainDlg dialog
-
-CMainDlg::CMainDlg(CWnd* pParent /*=NULL*/)
-	: CDialog(CMainDlg::IDD, pParent)
-{
+/**
+ * Dialog's standard constructor.
+ *
+ * @param pParent Parent window.
+ */
+CMainDlg::CMainDlg(CWnd* pParent /*=NULL*/) : CDialog(CMainDlg::IDD, pParent) {
 	//{{AFX_DATA_INIT(CMainDlg)
 		// NOTE: the ClassWizard will add member initialization here
 	//}}AFX_DATA_INIT
-	// Note that LoadIcon does not require a subsequent DestroyIcon in Win32
+
+	// Load the window's icon.
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
-void CMainDlg::DoDataExchange(CDataExchange* pDX)
-{
+/**
+ * Dialog's standard DoDataExchange event handler.
+ */
+void CMainDlg::DoDataExchange(CDataExchange* pDX) {
 	CDialog::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CMainDlg)
 		// NOTE: the ClassWizard will add DDX and DDV calls here
 	//}}AFX_DATA_MAP
+}
+
+/**
+ * Show's the about dialog.
+ */
+void CMainDlg::ShowAboutDialog() {
+	CAboutDlg dlgAbout;
+	dlgAbout.DoModal();
 }
 
 BEGIN_MESSAGE_MAP(CMainDlg, CDialog)
@@ -85,67 +56,67 @@ BEGIN_MESSAGE_MAP(CMainDlg, CDialog)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
-/////////////////////////////////////////////////////////////////////////////
-// CMainDlg message handlers
-
-BOOL CMainDlg::OnInitDialog()
-{
+/**
+ * Dialog's OnInit event handler.
+ *
+ * @return TRUE unless the focus was set to a control.
+ */
+BOOL CMainDlg::OnInitDialog() {
+	// Call the parent's initialize event.
 	CDialog::OnInitDialog();
-
-	// Add "About..." menu item to system menu.
 
 	// IDM_ABOUTBOX must be in the system command range.
 	ASSERT((IDM_ABOUTBOX & 0xFFF0) == IDM_ABOUTBOX);
 	ASSERT(IDM_ABOUTBOX < 0xF000);
 
+	// Add "About..." menu item to system menu.
 	CMenu* pSysMenu = GetSystemMenu(FALSE);
-	if (pSysMenu != NULL)
-	{
+	if (pSysMenu != NULL) {
 		CString strAboutMenu;
 		strAboutMenu.LoadString(IDS_ABOUTBOX);
-		if (!strAboutMenu.IsEmpty())
-		{
+
+		if (!strAboutMenu.IsEmpty()) {
 			pSysMenu->AppendMenu(MF_SEPARATOR);
 			pSysMenu->AppendMenu(MF_STRING, IDM_ABOUTBOX, strAboutMenu);
 		}
 	}
 
-	// Set the icon for this dialog.  The framework does this automatically
-	//  when the application's main window is not a dialog
-	SetIcon(m_hIcon, TRUE);			// Set big icon
-	SetIcon(m_hIcon, FALSE);		// Set small icon
+	// Set the icon for this dialog.
+	SetIcon(m_hIcon, TRUE);   // Set big icon
+	SetIcon(m_hIcon, FALSE);  // Set small icon
 	
 	// TODO: Add extra initialization here
 	
-	return TRUE;  // return TRUE  unless you set the focus to a control
+	return true;
 }
 
-void CMainDlg::OnSysCommand(UINT nID, LPARAM lParam)
-{
-	if ((nID & 0xFFF0) == IDM_ABOUTBOX)
-	{
-		CAboutDlg dlgAbout;
-		dlgAbout.DoModal();
-	}
-	else
-	{
+/**
+ * Dialog's OnSysCommand event handler.
+ *
+ * @param nID    ID of the command.
+ * @param lParam Optional parameter.
+ */
+void CMainDlg::OnSysCommand(UINT nID, LPARAM lParam) {
+	switch (LOWORD(nID)) {
+	case IDM_ABOUTBOX:
+		ShowAboutDialog();
+		break;
+	default:
 		CDialog::OnSysCommand(nID, lParam);
 	}
 }
 
-// If you add a minimize button to your dialog, you will need the code below
-//  to draw the icon.  For MFC applications using the document/view model,
-//  this is automatically done for you by the framework.
+/**
+ * Dialog's OnPaint event handler.
+ */
+void CMainDlg::OnPaint()  {
+	// Handle the drawing of the application's icon while minimized.
+	if (IsIconic()) {
+		CPaintDC dc(this);
 
-void CMainDlg::OnPaint() 
-{
-	if (IsIconic())
-	{
-		CPaintDC dc(this); // device context for painting
+		SendMessage(WM_ICONERASEBKGND, (WPARAM)dc.GetSafeHdc(), 0);
 
-		SendMessage(WM_ICONERASEBKGND, (WPARAM) dc.GetSafeHdc(), 0);
-
-		// Center icon in client rectangle
+		// Center icon in client rectangle.
 		int cxIcon = GetSystemMetrics(SM_CXICON);
 		int cyIcon = GetSystemMetrics(SM_CYICON);
 		CRect rect;
@@ -153,18 +124,20 @@ void CMainDlg::OnPaint()
 		int x = (rect.Width() - cxIcon + 1) / 2;
 		int y = (rect.Height() - cyIcon + 1) / 2;
 
-		// Draw the icon
+		// Draw the icon.
 		dc.DrawIcon(x, y, m_hIcon);
+		return;
 	}
-	else
-	{
-		CDialog::OnPaint();
-	}
+
+	// Delegate to the base OnPaint handler.
+	CDialog::OnPaint();
 }
 
-// The system calls this to obtain the cursor to display while the user drags
-//  the minimized window.
-HCURSOR CMainDlg::OnQueryDragIcon()
-{
+/**
+ * Dialog's OnQueryDragIcon event handler.
+ */
+HCURSOR CMainDlg::OnQueryDragIcon() {
+	// The system calls this to obtain the cursor to display while the user
+	// drags the minimized window.
 	return (HCURSOR) m_hIcon;
 }

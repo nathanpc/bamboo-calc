@@ -1,5 +1,9 @@
-// Desktop.h : main header file for the DESKTOP application
-//
+/**
+ * Bamboo IDE
+ * A simple IDE to work with the Bamboo Lisp implementation.
+ *
+ * @author Nathan Campos <nathan@innoveworkshop.com>
+ */
 
 #if !defined(AFX_DESKTOP_H__91380568_E959_464B_B77D_A73D8A1212E9__INCLUDED_)
 #define AFX_DESKTOP_H__91380568_E959_464B_B77D_A73D8A1212E9__INCLUDED_
@@ -12,15 +16,12 @@
 	#error include 'stdafx.h' before including this file for PCH
 #endif
 
-#include "resource.h"		// main symbols
+#include "resource.h"
 
-/////////////////////////////////////////////////////////////////////////////
-// CBambooApp:
-// See Desktop.cpp for the implementation of this class
-//
-
-class CBambooApp : public CWinApp
-{
+/**
+ * Bamboo IDE application instance.
+ */
+class CBambooApp : public CWinApp {
 public:
 	CBambooApp();
 
