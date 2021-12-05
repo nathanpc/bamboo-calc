@@ -8,6 +8,7 @@
 #include "stdafx.h"
 #include <windows.h>
 #include <tchar.h>
+#include <iostream>
 #include <cstdio>
 #include <cstdlib>
 #include <clocale>
@@ -174,7 +175,7 @@ bamboo_error_t builtin_quit(atom_t args, atom_t *result) {
 
 	// Check if we don't have any arguments.
 	if (nilp(args)) {
-		_tprintf(_T("Quitting from a custom built-in function.") LINEBREAK);
+		_tprintf(_T("Bye!") LINEBREAK);
 		exit(0);
 	}
 
@@ -189,10 +190,7 @@ bamboo_error_t builtin_quit(atom_t args, atom_t *result) {
 	if (arg1.type != ATOM_TYPE_INTEGER)
 		return BAMBOO_ERROR_WRONG_TYPE;
 
-	// Exit with the specified return value.
-	_tprintf(_T("Quitting from a custom built-in function with return value %lld.")
-		   LINEBREAK, arg1.value.integer);
-
+	_tprintf(_T("Bye!") LINEBREAK);
 	exit((int)arg1.value.integer);
 	return BAMBOO_OK;
 }
