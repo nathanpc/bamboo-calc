@@ -1,9 +1,9 @@
 <h1>
 	<img src="https://raw.githubusercontent.com/nathanpc/bamboo-lisp/master/Icon/Icon-512.png" width="64" height="64" />
-	Bamboo Calculator
+	Bamboo Lisp IDE
 </h1>
 
-A very powerful calculator based around the
+A very powerful IDE to confortably work with the
 [Bamboo Lisp](https://github.com/nathanpc/bamboo-lisp) implementation.
 
 
