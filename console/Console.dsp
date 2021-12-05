@@ -89,6 +89,10 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
+SOURCE=..\lib\lisp\src\bamboo.c
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\main.cpp
 # End Source File
 # Begin Source File
@@ -99,6 +103,10 @@ SOURCE=.\src\StdAfx.cpp
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=..\lib\lisp\src\bamboo.h
+# End Source File
 # Begin Source File
 
 SOURCE=.\src\StdAfx.h
