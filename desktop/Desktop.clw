@@ -2,12 +2,12 @@
 
 [General Info]
 Version=1
-LastClass=CMainDlg
-LastTemplate=CDialog
+LastClass=CCommandEdit
+LastTemplate=CEdit
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "Desktop.h"
 
-ClassCount=3
+ClassCount=4
 Class1=CBambooApp
 Class2=CMainDlg
 Class3=CAboutDlg
@@ -17,6 +17,7 @@ Resource1=IDD_ABOUTBOX
 Resource2=IDR_MAINFRAME
 Resource3=IDD_DESKTOP_DIALOG
 Resource4=IDD_ABOUTBOX (English (U.S.))
+Class4=CCommandEdit
 Resource5=IDD_DESKTOP_DIALOG (English (U.S.))
 
 [CLS:CBambooApp]
@@ -30,7 +31,9 @@ Type=0
 HeaderFile=src\maindlg.h
 ImplementationFile=src\maindlg.cpp
 BaseClass=CDialog
-LastObject=CMainDlg
+LastObject=IDC_EDIT_COMMAND
+Filter=D
+VirtualFilter=dWC
 
 [CLS:CAboutDlg]
 Type=0
@@ -59,14 +62,28 @@ Class=CMainDlg
 [DLG:IDD_DESKTOP_DIALOG (English (U.S.))]
 Type=1
 Class=CMainDlg
-ControlCount=0
+ControlCount=5
+Control1=IDC_STATIC_ENV,button,1342177287
+Control2=IDC_LIST_ENV,SysListView32,1350631431
+Control3=IDC_STATIC_SCRATCHPAD,button,1342177287
+Control4=IDC_EDIT_COMMAND,edit,1350635648
+Control5=IDC_LIST_HISTORY,listbox,1352728833
 
 [DLG:IDD_ABOUTBOX (English (U.S.))]
 Type=1
-Class=?
+Class=CAboutDlg
 ControlCount=4
 Control1=IDC_STATIC,static,1342177283
 Control2=IDC_STATIC,static,1342308480
 Control3=IDC_STATIC,static,1342308352
 Control4=IDOK,button,1342373889
+
+[CLS:CCommandEdit]
+Type=0
+HeaderFile=src\CommandEdit.h
+ImplementationFile=src\CommandEdit.cpp
+BaseClass=CEdit
+Filter=W
+VirtualFilter=WC
+LastObject=CCommandEdit
 

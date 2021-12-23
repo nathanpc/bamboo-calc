@@ -12,6 +12,8 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
+#include "stdafx.h"
+
 #ifndef __AFXWIN_H__
 	#error include 'stdafx.h' before including this file for PCH
 #endif
@@ -22,8 +24,12 @@
  * Bamboo IDE application instance.
  */
 class CBambooApp : public CWinApp {
+private:
+	Bamboo *bamboo;
+
 public:
 	CBambooApp();
+	virtual ~CBambooApp();
 
 // Overrides
 	// ClassWizard generated virtual function overrides

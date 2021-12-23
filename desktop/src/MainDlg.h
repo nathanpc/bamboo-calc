@@ -13,6 +13,7 @@
 #endif // _MSC_VER > 1000
 
 #include "../resource.h"
+#include "CommandEdit.h"
 
 /**
  * Application's main dialog window.
@@ -24,7 +25,7 @@ public:
 // Dialog Data
 	//{{AFX_DATA(CMainDlg)
 	enum { IDD = IDD_DESKTOP_DIALOG };
-		// NOTE: the ClassWizard will add data members here
+	CCommandEdit	m_edtCommand;
 	//}}AFX_DATA
 
 	// ClassWizard generated virtual function overrides
@@ -39,12 +40,16 @@ protected:
 
 	void ShowAboutDialog();
 
+    virtual void OnCancel();
+    virtual void OnOK();
+
 	// Generated message map functions
 	//{{AFX_MSG(CMainDlg)
 	virtual BOOL OnInitDialog();
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
+	afx_msg void OnClose();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

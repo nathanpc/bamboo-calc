@@ -24,11 +24,23 @@ BEGIN_MESSAGE_MAP(CBambooApp, CWinApp)
 END_MESSAGE_MAP()
 
 /**
- * Application's contructor.
+ * Application's instance contructor.
  */
 CBambooApp::CBambooApp() {
-	// TODO: add construction code here,
-	// Place all significant initialization in InitInstance
+	try {
+		this->bamboo = new Bamboo();
+	} catch (BambooException &e) {
+		MessageBox(NULL, e.what(), "Unable to initialize Bamboo environment",
+			MB_OK | MB_ICONERROR);
+		ExitProcess(static_cast<unsigned int>(e.ErrorCode()));
+	}
+}
+
+/**
+ * Application's instace destructor.
+ */
+CBambooApp::~CBambooApp() {
+	delete this->bamboo;
 }
 
 // The one and only CBambooApp object.

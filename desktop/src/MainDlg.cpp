@@ -36,7 +36,7 @@ CMainDlg::CMainDlg(CWnd* pParent /*=NULL*/) : CDialog(CMainDlg::IDD, pParent) {
 void CMainDlg::DoDataExchange(CDataExchange* pDX) {
 	CDialog::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CMainDlg)
-		// NOTE: the ClassWizard will add DDX and DDV calls here
+	DDX_Control(pDX, IDC_EDIT_COMMAND, m_edtCommand);
 	//}}AFX_DATA_MAP
 }
 
@@ -53,6 +53,7 @@ BEGIN_MESSAGE_MAP(CMainDlg, CDialog)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_WM_CLOSE()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -140,4 +141,26 @@ HCURSOR CMainDlg::OnQueryDragIcon() {
 	// The system calls this to obtain the cursor to display while the user
 	// drags the minimized window.
 	return (HCURSOR) m_hIcon;
+}
+
+/**
+ * Handles the IDOK command event.
+ */
+void CMainDlg::OnOK() {
+	// Prevents hitting Return from closing the dialog.
+}
+
+/**
+ * Handles the IDCANCEL command event.
+ */
+void CMainDlg::OnCancel() {
+	// Prevents hitting Escape from closing the dialog.
+}
+
+/**
+ * Handles the closing of the dialog when the user presses the close button.
+ */
+void CMainDlg::OnClose() {
+	// Simulate the close event by calling the original dialog cancel event.
+	CDialog::OnCancel();
 }

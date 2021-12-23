@@ -94,15 +94,15 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=.\src\AboutDlg.cpp
+SOURCE=..\lib\lisp\src\bamboo.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\BambooWrapper.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=.\src\Desktop.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\MainDlg.cpp
 # End Source File
 # Begin Source File
 
@@ -114,19 +114,15 @@ SOURCE=.\src\StdAfx.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=.\src\AboutDlg.h
+SOURCE=..\lib\lisp\src\bamboo.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\BambooWrapper.h
 # End Source File
 # Begin Source File
 
 SOURCE=.\src\Desktop.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\MainDlg.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\Resource.h
 # End Source File
 # Begin Source File
 
@@ -147,6 +143,43 @@ SOURCE=.\Desktop.rc
 # Begin Source File
 
 SOURCE=.\res\Desktop.rc2
+# End Source File
+# Begin Source File
+
+SOURCE=.\resource.h
+# End Source File
+# End Group
+# Begin Group "Controls"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\src\CommandEdit.cpp
+# ADD CPP /I ".."
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\CommandEdit.h
+# End Source File
+# End Group
+# Begin Group "Dialogs"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\src\AboutDlg.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\AboutDlg.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\MainDlg.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\MainDlg.h
 # End Source File
 # End Group
 # End Target
