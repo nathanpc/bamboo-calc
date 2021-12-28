@@ -93,6 +93,10 @@ SOURCE=..\lib\lisp\src\bamboo.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\lib\lisp\src\BambooWrapper.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\main.cpp
 # End Source File
 # Begin Source File
@@ -106,6 +110,10 @@ SOURCE=.\src\StdAfx.cpp
 # Begin Source File
 
 SOURCE=..\lib\lisp\src\bamboo.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\lib\lisp\src\BambooWrapper.h
 # End Source File
 # Begin Source File
 

@@ -98,7 +98,7 @@ SOURCE=..\lib\lisp\src\bamboo.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\src\BambooWrapper.cpp
+SOURCE=..\lib\lisp\src\BambooWrapper.cpp
 # End Source File
 # Begin Source File
 
@@ -118,7 +118,7 @@ SOURCE=..\lib\lisp\src\bamboo.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\src\BambooWrapper.h
+SOURCE=..\lib\lisp\src\BambooWrapper.h
 # End Source File
 # Begin Source File
 
