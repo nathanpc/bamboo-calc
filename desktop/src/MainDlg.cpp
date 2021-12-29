@@ -36,7 +36,7 @@ CMainDlg::CMainDlg(CWnd* pParent) : CDialog(CMainDlg::IDD, pParent) {
 void CMainDlg::InitializeEnvironment() {
 	// Initialize the Bamboo Lisp interpreter environment.
 	try {
-		this->m_bamboo = new Bamboo::Lisp();
+		m_bamboo = new Bamboo::Lisp();
 	} catch (Bamboo::BambooException& e) {
 		MessageBox(e.what(), _T("Unable to initialize Bamboo environment"),
 			MB_OK | MB_ICONERROR);
@@ -44,7 +44,7 @@ void CMainDlg::InitializeEnvironment() {
 	}
 	
 	// Initialize our prompt.
-	m_edtCommand.InitializePrompt(this->m_bamboo);
+	m_edtCommand.InitializePrompt(m_bamboo);
 }
 
 /**
@@ -54,6 +54,20 @@ void CMainDlg::ShowAboutDialog() {
 	CAboutDlg dlgAbout;
 	dlgAbout.DoModal();
 }
+
+BEGIN_MESSAGE_MAP(CMainDlg, CDialog)
+	//{{AFX_MSG_MAP(CMainDlg)
+	ON_WM_SYSCOMMAND()
+	ON_WM_PAINT()
+	ON_WM_QUERYDRAGICON()
+	ON_WM_CLOSE()
+	ON_COMMAND(IDM_MENU_FILE_EXIT, OnMenuFileExit)
+	ON_COMMAND(IDM_MENU_HELP_ABOUT, OnMenuHelpAbout)
+	ON_WM_DESTROY()
+	ON_COMMAND(IDA_ACCEL_QUIT, OnMenuFileExit)
+	ON_COMMAND(IDA_ACCEL_HELP, OnMenuHelpAbout)
+	//}}AFX_MSG_MAP
+END_MESSAGE_MAP()
 
 /**
  * Dialog's standard DoDataExchange event handler.
@@ -65,14 +79,17 @@ void CMainDlg::DoDataExchange(CDataExchange* pDX) {
 	//}}AFX_DATA_MAP
 }
 
-BEGIN_MESSAGE_MAP(CMainDlg, CDialog)
-	//{{AFX_MSG_MAP(CMainDlg)
-	ON_WM_SYSCOMMAND()
-	ON_WM_PAINT()
-	ON_WM_QUERYDRAGICON()
-	ON_WM_CLOSE()
-	//}}AFX_MSG_MAP
-END_MESSAGE_MAP()
+/**
+ * Handles the dialog messages before they are translated via MFC.
+ */
+BOOL CMainDlg::PreTranslateMessage(MSG* pMsg) {
+	if (m_hAccel) {
+		if (::TranslateAccelerator(m_hWnd, m_hAccel, pMsg))
+			return true;
+	}
+
+	return CDialog::PreTranslateMessage(pMsg);
+}
 
 /**
  * Dialog's OnInit event handler.
@@ -103,8 +120,14 @@ BOOL CMainDlg::OnInitDialog() {
 	SetIcon(m_hIcon, TRUE);   // Set big icon
 	SetIcon(m_hIcon, FALSE);  // Set small icon
 
+	// Add a menu bar and load accelerators.
+	m_menu.LoadMenu(IDR_MENU_MAIN);
+	SetMenu(&m_menu);
+	m_hAccel = ::LoadAccelerators(AfxGetResourceHandle(),
+		MAKEINTRESOURCE(IDR_ACCEL_MAIN));
+
 	// Initialize the Bamboo Lisp interpreter environment.
-	this->InitializeEnvironment();
+	InitializeEnvironment();
 	
 	return true;
 }
@@ -186,10 +209,25 @@ void CMainDlg::OnClose() {
 /**
  * Handles the window destruction.
  */
-BOOL CMainDlg::DestroyWindow() {
+void CMainDlg::OnDestroy() {
 	// Clean up our allocations.
+	VERIFY(DestroyAcceleratorTable(m_hAccel));
 	delete this->m_bamboo;
-
+	
 	// Continue destroying the window.
-	return CDialog::DestroyWindow();
+	CDialog::OnDestroy();
+}
+
+/**
+ * File -> Exit menu item command event handler.
+ */
+void CMainDlg::OnMenuFileExit() {
+	EndDialog(0);
+}
+
+/**
+ * Help -> About menu item command event handler.
+ */
+void CMainDlg::OnMenuHelpAbout() {
+	ShowAboutDialog();
 }

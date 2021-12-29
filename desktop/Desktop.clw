@@ -12,13 +12,15 @@ Class1=CBambooApp
 Class2=CMainDlg
 Class3=CAboutDlg
 
-ResourceCount=5
+ResourceCount=7
 Resource1=IDD_ABOUTBOX
 Resource2=IDR_MAINFRAME
 Resource3=IDD_DESKTOP_DIALOG
-Resource4=IDD_ABOUTBOX (English (U.S.))
+Resource4=IDR_MENU_MAIN
 Class4=CCommandEdit
 Resource5=IDD_DESKTOP_DIALOG (English (U.S.))
+Resource6=IDD_ABOUTBOX (English (U.S.))
+Resource7=IDR_ACCEL_MAIN
 
 [CLS:CBambooApp]
 Type=0
@@ -31,7 +33,7 @@ Type=0
 HeaderFile=src\maindlg.h
 ImplementationFile=src\maindlg.cpp
 BaseClass=CDialog
-LastObject=CMainDlg
+LastObject=IDA_ACCEL_HELP
 Filter=D
 VirtualFilter=dWC
 
@@ -64,7 +66,7 @@ Type=1
 Class=CMainDlg
 ControlCount=4
 Control1=IDC_STATIC_ENV,button,1342177287
-Control2=IDC_LIST_ENV,SysListView32,1350631431
+Control2=IDC_LIST_ENV,SysListView32,1350631429
 Control3=IDC_STATIC_SCRATCHPAD,button,1342177287
 Control4=IDC_EDIT_COMMAND,edit,1352732676
 
@@ -85,4 +87,18 @@ BaseClass=CEdit
 Filter=W
 VirtualFilter=WC
 LastObject=CCommandEdit
+
+[MNU:IDR_MENU_MAIN]
+Type=1
+Class=CMainDlg
+Command1=IDM_MENU_FILE_EXIT
+Command2=IDM_MENU_HELP_ABOUT
+CommandCount=2
+
+[ACL:IDR_ACCEL_MAIN]
+Type=1
+Class=CMainDlg
+Command1=IDA_ACCEL_QUIT
+Command2=IDA_ACCEL_HELP
+CommandCount=2
 

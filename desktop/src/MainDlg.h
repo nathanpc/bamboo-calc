@@ -21,6 +21,8 @@
 class CMainDlg : public CDialog {
 protected:
 	Bamboo::Lisp *m_bamboo;
+	CMenu m_menu;
+	HACCEL m_hAccel;
 
 	// Initialization stuff.
 	void InitializeEnvironment();
@@ -37,7 +39,7 @@ public:
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CMainDlg)
 	public:
-	virtual BOOL DestroyWindow();
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
 	//}}AFX_VIRTUAL
@@ -58,6 +60,9 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	afx_msg void OnClose();
+	afx_msg void OnMenuFileExit();
+	afx_msg void OnMenuHelpAbout();
+	afx_msg void OnDestroy();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

@@ -37,18 +37,18 @@ BEGIN
     DEFPUSHBUTTON   "OK",IDOK,178,7,50,14,WS_GROUP
 END
 
-IDD_DESKTOP_DIALOG DIALOGEX 0, 0, 471, 265
+IDD_DESKTOP_DIALOG DIALOGEX 0, 0, 466, 274
 STYLE DS_3DLOOK | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_VISIBLE | 
     WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
 EXSTYLE WS_EX_APPWINDOW
 CAPTION "Bamboo"
 FONT 8, "MS Sans Serif"
 BEGIN
-    GROUPBOX        "Environment",IDC_STATIC_ENV,300,0,165,260
-    CONTROL         "List2",IDC_LIST_ENV,"SysListView32",LVS_LIST | 
-                    LVS_SINGLESEL | WS_BORDER | WS_TABSTOP,305,10,155,245
-    GROUPBOX        "Scratch Pad",IDC_STATIC_SCRATCHPAD,5,0,290,260
-    EDITTEXT        IDC_EDIT_COMMAND,10,10,280,245,ES_MULTILINE | 
+    GROUPBOX        "Environment",IDC_STATIC_ENV,298,0,165,260
+    CONTROL         "List2",IDC_LIST_ENV,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | WS_BORDER | WS_TABSTOP,303,10,155,245
+    GROUPBOX        "Scratch Pad",IDC_STATIC_SCRATCHPAD,3,0,290,260
+    EDITTEXT        IDC_EDIT_COMMAND,8,10,280,245,ES_MULTILINE | 
                     ES_WANTRETURN | WS_VSCROLL
 END
 
@@ -115,9 +115,9 @@ BEGIN
     IDD_DESKTOP_DIALOG, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 464
+        RIGHTMARGIN, 459
         TOPMARGIN, 7
-        BOTTOMMARGIN, 258
+        BOTTOMMARGIN, 267
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -191,6 +191,36 @@ BEGIN
 END
 
 #endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU_MAIN MENU DISCARDABLE 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "E&xit\tCtrl+Q",               IDM_MENU_FILE_EXIT
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About\tF1",                  IDM_MENU_HELP_ABOUT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_ACCEL_MAIN ACCELERATORS DISCARDABLE 
+BEGIN
+    "Q",            IDA_ACCEL_QUIT,         VIRTKEY, CONTROL, NOINVERT
+    VK_F1,          IDA_ACCEL_HELP,         VIRTKEY, NOINVERT
+END
 
 #endif    // English (U.K.) resources
 /////////////////////////////////////////////////////////////////////////////
