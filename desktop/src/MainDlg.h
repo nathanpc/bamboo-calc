@@ -19,6 +19,12 @@
  * Application's main dialog window.
  */
 class CMainDlg : public CDialog {
+protected:
+	Bamboo::Lisp *m_bamboo;
+
+	// Initialization stuff.
+	void InitializeEnvironment();
+
 public:
 	CMainDlg(CWnd* pParent = NULL);
 
@@ -30,6 +36,8 @@ public:
 
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CMainDlg)
+	public:
+	virtual BOOL DestroyWindow();
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
 	//}}AFX_VIRTUAL

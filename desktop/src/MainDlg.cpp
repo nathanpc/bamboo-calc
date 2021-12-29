@@ -21,13 +21,38 @@ static char THIS_FILE[] = __FILE__;
  *
  * @param pParent Parent window.
  */
-CMainDlg::CMainDlg(CWnd* pParent /*=NULL*/) : CDialog(CMainDlg::IDD, pParent) {
+CMainDlg::CMainDlg(CWnd* pParent) : CDialog(CMainDlg::IDD, pParent) {
 	//{{AFX_DATA_INIT(CMainDlg)
 		// NOTE: the ClassWizard will add member initialization here
 	//}}AFX_DATA_INIT
 
 	// Load the window's icon.
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+}
+
+/**
+ * Initializes the Bamboo Lisp interpreter environment in the window.
+ */
+void CMainDlg::InitializeEnvironment() {
+	// Initialize the Bamboo Lisp interpreter environment.
+	try {
+		this->m_bamboo = new Bamboo::Lisp();
+	} catch (Bamboo::BambooException& e) {
+		MessageBox(e.what(), _T("Unable to initialize Bamboo environment"),
+			MB_OK | MB_ICONERROR);
+		ExitProcess(static_cast<unsigned int>(e.error_code()));
+	}
+	
+	// Initialize our prompt.
+	m_edtCommand.InitializePrompt(this->m_bamboo);
+}
+
+/**
+ * Show's the about dialog.
+ */
+void CMainDlg::ShowAboutDialog() {
+	CAboutDlg dlgAbout;
+	dlgAbout.DoModal();
 }
 
 /**
@@ -38,14 +63,6 @@ void CMainDlg::DoDataExchange(CDataExchange* pDX) {
 	//{{AFX_DATA_MAP(CMainDlg)
 	DDX_Control(pDX, IDC_EDIT_COMMAND, m_edtCommand);
 	//}}AFX_DATA_MAP
-}
-
-/**
- * Show's the about dialog.
- */
-void CMainDlg::ShowAboutDialog() {
-	CAboutDlg dlgAbout;
-	dlgAbout.DoModal();
 }
 
 BEGIN_MESSAGE_MAP(CMainDlg, CDialog)
@@ -85,8 +102,9 @@ BOOL CMainDlg::OnInitDialog() {
 	// Set the icon for this dialog.
 	SetIcon(m_hIcon, TRUE);   // Set big icon
 	SetIcon(m_hIcon, FALSE);  // Set small icon
-	
-	// TODO: Add extra initialization here
+
+	// Initialize the Bamboo Lisp interpreter environment.
+	this->InitializeEnvironment();
 	
 	return true;
 }
@@ -163,4 +181,15 @@ void CMainDlg::OnCancel() {
 void CMainDlg::OnClose() {
 	// Simulate the close event by calling the original dialog cancel event.
 	CDialog::OnCancel();
+}
+
+/**
+ * Handles the window destruction.
+ */
+BOOL CMainDlg::DestroyWindow() {
+	// Clean up our allocations.
+	delete this->m_bamboo;
+
+	// Continue destroying the window.
+	return CDialog::DestroyWindow();
 }

@@ -24,9 +24,6 @@
  * Bamboo IDE application instance.
  */
 class CBambooApp : public CWinApp {
-private:
-	Bamboo *bamboo;
-
 public:
 	CBambooApp();
 	virtual ~CBambooApp();

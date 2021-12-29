@@ -22,7 +22,7 @@
 
 
 // Bamboo Lisp interpreter.
-#include "BambooWrapper.h"
+#include "../../lib/lisp/src/BambooWrapper.h"
 
 
 //{{AFX_INSERT_LOCATION}}

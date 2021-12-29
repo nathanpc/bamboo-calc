@@ -2,7 +2,7 @@
 
 [General Info]
 Version=1
-LastClass=CCommandEdit
+LastClass=CMainDlg
 LastTemplate=CEdit
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "Desktop.h"
@@ -31,7 +31,7 @@ Type=0
 HeaderFile=src\maindlg.h
 ImplementationFile=src\maindlg.cpp
 BaseClass=CDialog
-LastObject=IDC_EDIT_COMMAND
+LastObject=CMainDlg
 Filter=D
 VirtualFilter=dWC
 
@@ -62,12 +62,11 @@ Class=CMainDlg
 [DLG:IDD_DESKTOP_DIALOG (English (U.S.))]
 Type=1
 Class=CMainDlg
-ControlCount=5
+ControlCount=4
 Control1=IDC_STATIC_ENV,button,1342177287
 Control2=IDC_LIST_ENV,SysListView32,1350631431
 Control3=IDC_STATIC_SCRATCHPAD,button,1342177287
-Control4=IDC_EDIT_COMMAND,edit,1350635648
-Control5=IDC_LIST_HISTORY,listbox,1352728833
+Control4=IDC_EDIT_COMMAND,edit,1352732676
 
 [DLG:IDD_ABOUTBOX (English (U.S.))]
 Type=1

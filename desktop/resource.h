@@ -8,7 +8,6 @@
 #define IDD_DESKTOP_DIALOG              102
 #define IDR_MAINFRAME                   128
 #define IDC_EDIT_COMMAND                1002
-#define IDC_LIST_HISTORY                1003
 #define IDC_STATIC_ENV                  1004
 #define IDC_LIST_ENV                    1005
 #define IDC_STATIC_SCRATCHPAD           1006

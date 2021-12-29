@@ -1,7 +1,6 @@
 /**
  * CommandEdit.h
- * An extension of the classic CEdit control with some helpful things already
- * implemented for your convinience.
+ * An extension of the classic CEdit control to mimic a REPL environment.
  *
  * @author Nathan Campos <nathan@innoveworkshop.com>
  */
@@ -16,14 +15,23 @@
 #include "../resource.h"
 
 class CCommandEdit : public CEdit {
+protected:
+	Bamboo::Lisp *m_bamboo;
+	CString m_prompt;
+
+	// Expression stuff.
+	void HandleExpression();
+
 public:
 	CCommandEdit();
 
-// Attributes
-public:
+	// Expression operations.
+	CString GetCurrentExpression();
 
-// Operations
-public:
+	// Prompt stuff.
+	void InitializePrompt(Bamboo::Lisp *bamboo);
+	CString GetPrompt();
+	void SetPrompt(CString prompt);
 
 // Overrides
 	// ClassWizard generated virtual function overrides

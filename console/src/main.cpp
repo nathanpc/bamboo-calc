@@ -60,9 +60,10 @@ int _tmain(int argc, TCHAR *argv[]) {
 			atom_t result = bamboo.eval_expr(parsed);
 
 			// Print the evaluated result.
-			bamboo_print_expr(result);
-			std::cout << std::endl;
-		} catch (Bamboo::BambooException e) {
+			TCHAR *buf = bamboo.expr_str(result);
+			std::cout << buf << std::endl;
+			free(buf);
+		} catch (Bamboo::BambooException& e) {
 			// Print the error encountered.
 			std::cerr << _T("(") << e.error_code() << _T(") ") <<
 				e.error_type() << _T(": ") << e.error_detail() << std::endl;
