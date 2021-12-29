@@ -64,7 +64,8 @@ int _tmain(int argc, TCHAR *argv[]) {
 			std::cout << std::endl;
 		} catch (Bamboo::BambooException e) {
 			// Print the error encountered.
-			std::cerr << e.what() << std::endl;
+			std::cerr << _T("(") << e.error_code() << _T(") ") <<
+				e.error_type() << _T(": ") << e.error_detail() << std::endl;
 		}
 	}
 
