@@ -8,13 +8,14 @@
 #include "stdafx.h"
 #include <windows.h>
 #include <tchar.h>
+#include <string>
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
 #include <clocale>
 #include <fcntl.h>
 #include <io.h>
-#include "../../lib/lisp/src/bamboo.h"
+#include "../../lib/lisp/src/BambooWrapper.h"
 
 // Private definitions.
 #define REPL_INPUT_MAX_LEN 512
@@ -32,8 +33,7 @@ bamboo_error_t builtin_quit(atom_t args, atom_t *result);
  */
 int _tmain(int argc, TCHAR *argv[]) {
 	TCHAR *input;
-	bamboo_error_t err;
-	env_t env;
+	Bamboo::Lisp bamboo;
 
 #ifdef UNICODE
 	// Enable support for unicode in the console.
@@ -41,13 +41,8 @@ int _tmain(int argc, TCHAR *argv[]) {
 	(void)_setmode(_fileno(stdin), _O_WTEXT);
 #endif
 
-	// Initialize the interpreter.
-	err = bamboo_init(&env);
-	if (err)
-		return err;
-
 	// Add our own custom built-in function.
-	bamboo_env_set_builtin(env, _T("QUIT"), builtin_quit);
+	bamboo.env().set_builtin(_T("QUIT"), builtin_quit);
 
 	// Allocate memory for the REPL input data.
 	input = (TCHAR *)malloc(sizeof(TCHAR) * (REPL_INPUT_MAX_LEN + 1));
@@ -59,45 +54,23 @@ int _tmain(int argc, TCHAR *argv[]) {
 
 	// Start the REPL.
 	while (!readline(input, REPL_INPUT_MAX_LEN)) {
-		atom_t parsed;
-		atom_t result;
-		const TCHAR *end;
+		try {
+			// Parse the user's input and evaluate the expression.
+			atom_t parsed = bamboo.parse_expr(input);
+			atom_t result = bamboo.eval_expr(parsed);
 
-		// Parse the user's input.
-		err = bamboo_parse_expr(input, &end, &parsed);
-		if (err > BAMBOO_OK) {
-			uint8_t spaces;
-			
-			// Show where the user was wrong.
-			_tprintf(_T("%s %s"), input, LINEBREAK);
-			for (spaces = 0; spaces < (end - input); spaces++)
-				_puttchar(_T(' '));
-			_tprintf(_T("^ "));
-			
-			// Show the error message.
-			bamboo_print_error(err);
-			_ftprintf(stderr, LINEBREAK);
-
-			continue;
+			// Print the evaluated result.
+			bamboo_print_expr(result);
+			std::cout << std::endl;
+		} catch (Bamboo::BambooException e) {
+			// Print the error encountered.
+			std::cerr << e.what() << std::endl;
 		}
-
-		// Evaluate the parsed expression.
-		err = bamboo_eval_expr(parsed, env, &result);
-		if (err > BAMBOO_OK) {
-			bamboo_print_error(err);
-			_ftprintf(stderr, LINEBREAK);
-
-			continue;
-		}
-
-		// Print the evaluated result.
-		bamboo_print_expr(result);
-		_tprintf(LINEBREAK);
 	}
 
 	// Quit.
 	free(input);
-	_tprintf(_T("Bye!") LINEBREAK);
+	std::cout << _T("Bye!") << std::endl;
 
 	return 0;
 }
