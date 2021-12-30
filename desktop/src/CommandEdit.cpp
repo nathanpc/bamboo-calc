@@ -19,7 +19,7 @@ static char THIS_FILE[] = __FILE__;
  */
 CCommandEdit::CCommandEdit() {
 	// Set the default prompt.
-	this->SetPrompt(_T("> "));
+	SetPrompt(_T("> "));
 }
 
 /**
@@ -38,11 +38,11 @@ CCommandEdit::~CCommandEdit() {
 void CCommandEdit::InitializePrompt(Bamboo::Lisp *pBamboo,
 									CEnvironmentList& lstEnvironment) {
 	// Grab our Bamboo instance and environment list control.
-	this->m_pBamboo = pBamboo;
-	this->m_plstEnvironment = &lstEnvironment;
+	m_pBamboo = pBamboo;
+	m_plstEnvironment = &lstEnvironment;
 
 	// Append the prompt in the control.
-	this->ReplaceSel((LPCTSTR)this->GetPrompt(), false);
+	ReplaceSel((LPCTSTR)GetPrompt(), false);
 }
 
 /**
@@ -50,17 +50,17 @@ void CCommandEdit::InitializePrompt(Bamboo::Lisp *pBamboo,
  */
 void CCommandEdit::HandleExpression() {
 	// Get the expression and go to the next line.
-	CString strExpression = this->GetCurrentExpression();
-	this->ReplaceSel(_T("\r\n"), false);
+	CString strExpression = GetCurrentExpression();
+	ReplaceSel(_T("\r\n"), false);
 
 	CString strResult;
 	try {
 		// Parse and evaluate the expression.
-		atom_t batParsed = this->m_pBamboo->parse_expr((LPCTSTR)strExpression);
-		atom_t batResult = this->m_pBamboo->eval_expr(batParsed);
+		atom_t batParsed = m_pBamboo->parse_expr((LPCTSTR)strExpression);
+		atom_t batResult = m_pBamboo->eval_expr(batParsed);
 
 		// Return the evaluated result.
-		TCHAR *pszBuffer = this->m_pBamboo->expr_str(batResult);
+		TCHAR *pszBuffer = m_pBamboo->expr_str(batResult);
 		strResult = pszBuffer;
 		free(pszBuffer);
 
@@ -73,11 +73,11 @@ void CCommandEdit::HandleExpression() {
 	}
 
 	// Show the result of the evaluated expression.
-	this->ReplaceSel((LPCTSTR)strResult, false);
+	ReplaceSel((LPCTSTR)strResult, false);
 	
 	// Prompt the user for more.
-	this->ReplaceSel(_T("\r\n"), false);
-	this->ReplaceSel((LPCTSTR)this->GetPrompt(), false);
+	ReplaceSel(_T("\r\n"), false);
+	ReplaceSel((LPCTSTR)GetPrompt(), false);
 }
 
 /**
@@ -89,18 +89,18 @@ CString CCommandEdit::GetCurrentExpression() {
 	CString strExpression;
 
 	// Get the cursor position and lengths.
-	int idxCursor = this->CharFromPos(this->GetCaretPos());
+	int idxCursor = CharFromPos(GetCaretPos());
 	int nLine = HIWORD(idxCursor);
 	int nChar = LOWORD(idxCursor);
-	int nLen = this->LineLength(nChar);
+	int nLen = LineLength(nChar);
 
 	// Get the entire line buffer.
-	this->GetLine(nLine, strExpression.GetBuffer(nLen), nLen);
+	GetLine(nLine, strExpression.GetBuffer(nLen), nLen);
 	strExpression.ReleaseBuffer();
 
 	// Remove the prompt from the expression.
-	int nPromptLen = this->GetPrompt().GetLength();
-	if (strExpression.Left(nPromptLen) == this->GetPrompt())
+	int nPromptLen = GetPrompt().GetLength();
+	if (strExpression.Left(nPromptLen) == GetPrompt())
 		strExpression.Delete(0, nPromptLen);
 
 	return strExpression;
@@ -112,7 +112,7 @@ CString CCommandEdit::GetCurrentExpression() {
  * @return Prompt string.
  */
 CString CCommandEdit::GetPrompt() {
-	return this->m_strPrompt;
+	return m_strPrompt;
 }
 
 /**
@@ -121,7 +121,7 @@ CString CCommandEdit::GetPrompt() {
  * @param strPrompt Prompt string.
  */
 void CCommandEdit::SetPrompt(CString strPrompt) {
-	this->m_strPrompt = strPrompt;
+	m_strPrompt = strPrompt;
 }
 
 BEGIN_MESSAGE_MAP(CCommandEdit, CEdit)
@@ -156,7 +156,7 @@ void CCommandEdit::OnChar(UINT nChar, UINT nRepCnt, UINT nFlags) {
 	// Check if we actually got a Return key.
 	if (VK_RETURN == nChar) {
 		//AfxGetMainWnd()->SetFocus();
-		this->HandleExpression();
+		HandleExpression();
 		return;
 	}
 	
