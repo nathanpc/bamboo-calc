@@ -3,11 +3,11 @@
 [General Info]
 Version=1
 LastClass=CMainDlg
-LastTemplate=CEdit
+LastTemplate=CListCtrl
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "Desktop.h"
 
-ClassCount=4
+ClassCount=5
 Class1=CBambooApp
 Class2=CMainDlg
 Class3=CAboutDlg
@@ -16,10 +16,11 @@ ResourceCount=7
 Resource1=IDD_ABOUTBOX
 Resource2=IDR_MAINFRAME
 Resource3=IDD_DESKTOP_DIALOG
-Resource4=IDR_MENU_MAIN
+Resource4=IDD_ABOUTBOX (English (U.S.))
 Class4=CCommandEdit
-Resource5=IDD_DESKTOP_DIALOG (English (U.S.))
-Resource6=IDD_ABOUTBOX (English (U.S.))
+Resource5=IDR_MENU_MAIN
+Resource6=IDD_DESKTOP_DIALOG (English (U.S.))
+Class5=CEnvironmentList
 Resource7=IDR_ACCEL_MAIN
 
 [CLS:CBambooApp]
@@ -33,7 +34,7 @@ Type=0
 HeaderFile=src\maindlg.h
 ImplementationFile=src\maindlg.cpp
 BaseClass=CDialog
-LastObject=IDA_ACCEL_HELP
+LastObject=CMainDlg
 Filter=D
 VirtualFilter=dWC
 
@@ -101,4 +102,12 @@ Class=CMainDlg
 Command1=IDA_ACCEL_QUIT
 Command2=IDA_ACCEL_HELP
 CommandCount=2
+
+[CLS:CEnvironmentList]
+Type=0
+HeaderFile=src\EnvironmentList.h
+ImplementationFile=src\EnvironmentList.cpp
+BaseClass=CListCtrl
+Filter=W
+LastObject=CEnvironmentList
 

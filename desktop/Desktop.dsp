@@ -161,6 +161,14 @@ SOURCE=.\src\CommandEdit.cpp
 
 SOURCE=.\src\CommandEdit.h
 # End Source File
+# Begin Source File
+
+SOURCE=.\src\EnvironmentList.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\EnvironmentList.h
+# End Source File
 # End Group
 # Begin Group "Dialogs"
 
