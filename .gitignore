@@ -3,6 +3,9 @@
 *.so
 build/
 Debug/
+Debug_Static/
+Release/
+Release_Static/
 *Dbg/
 *Rel/
 
