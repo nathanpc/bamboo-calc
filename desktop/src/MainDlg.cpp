@@ -21,7 +21,7 @@ static char THIS_FILE[] = __FILE__;
  *
  * @param pParent Parent window.
  */
-CMainDlg::CMainDlg(CWnd* pParent) : CDialog(CMainDlg::IDD, pParent) {
+CMainDlg::CMainDlg(CWnd* pParent) : CResizableDialog(CMainDlg::IDD, pParent) {
 	//{{AFX_DATA_INIT(CMainDlg)
 	//}}AFX_DATA_INIT
 
@@ -56,7 +56,7 @@ void CMainDlg::ShowAboutDialog() {
 	dlgAbout.DoModal();
 }
 
-BEGIN_MESSAGE_MAP(CMainDlg, CDialog)
+BEGIN_MESSAGE_MAP(CMainDlg, CResizableDialog)
 	//{{AFX_MSG_MAP(CMainDlg)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
@@ -74,7 +74,7 @@ END_MESSAGE_MAP()
  * Dialog's standard DoDataExchange event handler.
  */
 void CMainDlg::DoDataExchange(CDataExchange* pDX) {
-	CDialog::DoDataExchange(pDX);
+	CResizableDialog::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CMainDlg)
 	DDX_Control(pDX, IDC_LIST_ENV, m_lstEnvironment);
 	DDX_Control(pDX, IDC_EDIT_COMMAND, m_edtCommand);
@@ -90,7 +90,7 @@ BOOL CMainDlg::PreTranslateMessage(MSG* pMsg) {
 			return true;
 	}
 
-	return CDialog::PreTranslateMessage(pMsg);
+	return CResizableDialog::PreTranslateMessage(pMsg);
 }
 
 /**
@@ -100,7 +100,7 @@ BOOL CMainDlg::PreTranslateMessage(MSG* pMsg) {
  */
 BOOL CMainDlg::OnInitDialog() {
 	// Call the parent's initialize event.
-	CDialog::OnInitDialog();
+	CResizableDialog::OnInitDialog();
 
 	// IDM_ABOUTBOX must be in the system command range.
 	ASSERT((IDM_ABOUTBOX & 0xFFF0) == IDM_ABOUTBOX);
@@ -128,6 +128,12 @@ BOOL CMainDlg::OnInitDialog() {
 	m_hAccel = ::LoadAccelerators(AfxGetResourceHandle(),
 		MAKEINTRESOURCE(IDR_ACCEL_MAIN));
 
+	// Setup the anchors for resizing.
+	AddAnchor(IDC_STATIC_SCRATCHPAD, TOP_LEFT, BOTTOM_RIGHT);
+	AddAnchor(IDC_EDIT_COMMAND, TOP_LEFT, BOTTOM_RIGHT);
+	AddAnchor(IDC_STATIC_ENV, TOP_RIGHT, BOTTOM_RIGHT);
+	AddAnchor(IDC_LIST_ENV, TOP_RIGHT, BOTTOM_RIGHT);
+
 	// Initialize the Bamboo Lisp interpreter environment.
 	InitializeEnvironment();
 	
@@ -146,7 +152,7 @@ void CMainDlg::OnSysCommand(UINT nID, LPARAM lParam) {
 		ShowAboutDialog();
 		break;
 	default:
-		CDialog::OnSysCommand(nID, lParam);
+		CResizableDialog::OnSysCommand(nID, lParam);
 	}
 }
 
@@ -174,7 +180,7 @@ void CMainDlg::OnPaint()  {
 	}
 
 	// Delegate to the base OnPaint handler.
-	CDialog::OnPaint();
+	CResizableDialog::OnPaint();
 }
 
 /**
@@ -205,7 +211,7 @@ void CMainDlg::OnCancel() {
  */
 void CMainDlg::OnClose() {
 	// Simulate the close event by calling the original dialog cancel event.
-	CDialog::OnCancel();
+	CResizableDialog::OnCancel();
 }
 
 /**
@@ -217,7 +223,7 @@ void CMainDlg::OnDestroy() {
 	delete this->m_pBamboo;
 	
 	// Continue destroying the window.
-	CDialog::OnDestroy();
+	CResizableDialog::OnDestroy();
 }
 
 /**

@@ -19,7 +19,7 @@
 /**
  * Application's main dialog window.
  */
-class CMainDlg : public CDialog {
+class CMainDlg : public CResizableDialog {
 protected:
 	Bamboo::Lisp *m_pBamboo;
 	CMenu m_menu;

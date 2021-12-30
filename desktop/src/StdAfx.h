@@ -24,6 +24,9 @@
 // Bamboo Lisp interpreter.
 #include "../../lib/lisp/src/BambooWrapper.h"
 
+// Resizable library.
+#include "../../lib/ResizableLib/ResizableDialog.h"
+
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
