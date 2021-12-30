@@ -23,7 +23,6 @@ static char THIS_FILE[] = __FILE__;
  */
 CMainDlg::CMainDlg(CWnd* pParent) : CDialog(CMainDlg::IDD, pParent) {
 	//{{AFX_DATA_INIT(CMainDlg)
-		// NOTE: the ClassWizard will add member initialization here
 	//}}AFX_DATA_INIT
 
 	// Load the window's icon.
@@ -36,15 +35,17 @@ CMainDlg::CMainDlg(CWnd* pParent) : CDialog(CMainDlg::IDD, pParent) {
 void CMainDlg::InitializeEnvironment() {
 	// Initialize the Bamboo Lisp interpreter environment.
 	try {
-		m_bamboo = new Bamboo::Lisp();
+		m_pBamboo = new Bamboo::Lisp();
 	} catch (Bamboo::BambooException& e) {
 		MessageBox(e.what(), _T("Unable to initialize Bamboo environment"),
 			MB_OK | MB_ICONERROR);
 		ExitProcess(static_cast<unsigned int>(e.error_code()));
 	}
 	
-	// Initialize our prompt.
-	m_edtCommand.InitializePrompt(m_bamboo);
+	// Initialize our prompt and variables list.
+	m_lstEnvironment.InitializeList(m_pBamboo);
+	m_edtCommand.InitializePrompt(m_pBamboo);
+
 }
 
 /**
@@ -75,6 +76,7 @@ END_MESSAGE_MAP()
 void CMainDlg::DoDataExchange(CDataExchange* pDX) {
 	CDialog::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CMainDlg)
+	DDX_Control(pDX, IDC_LIST_ENV, m_lstEnvironment);
 	DDX_Control(pDX, IDC_EDIT_COMMAND, m_edtCommand);
 	//}}AFX_DATA_MAP
 }
@@ -212,7 +214,7 @@ void CMainDlg::OnClose() {
 void CMainDlg::OnDestroy() {
 	// Clean up our allocations.
 	VERIFY(DestroyAcceleratorTable(m_hAccel));
-	delete this->m_bamboo;
+	delete this->m_pBamboo;
 	
 	// Continue destroying the window.
 	CDialog::OnDestroy();

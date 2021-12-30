@@ -1,7 +1,6 @@
 /**
  * CommandEdit.cpp
- * An extension of the classic CEdit control with some helpful things already
- * implemented for your convinience.
+ * An extension of the classic CEdit control to mimic a REPL environment.
  *
  * @author Nathan Campos <nathan@innoveworkshop.com>
  */
@@ -32,10 +31,12 @@ CCommandEdit::~CCommandEdit() {
 /**
  * Initializes the REPL prompt. Must be called whenever the application is
  * ready to start accepting commands.
+ *
+ * @param pBamboo Bamboo Lisp instance.
  */
-void CCommandEdit::InitializePrompt(Bamboo::Lisp *bamboo) {
+void CCommandEdit::InitializePrompt(Bamboo::Lisp *pBamboo) {
 	// Grab our Bamboo instance.
-	this->m_bamboo = bamboo;
+	this->m_pBamboo = pBamboo;
 
 	// Append the prompt in the control.
 	this->ReplaceSel((LPCTSTR)this->GetPrompt(), false);
@@ -52,13 +53,13 @@ void CCommandEdit::HandleExpression() {
 	CString strResult;
 	try {
 		// Parse and evaluate the expression.
-		atom_t parsed = this->m_bamboo->parse_expr((LPCTSTR)strExpression);
-		atom_t result = this->m_bamboo->eval_expr(parsed);
+		atom_t batParsed = this->m_pBamboo->parse_expr((LPCTSTR)strExpression);
+		atom_t batResult = this->m_pBamboo->eval_expr(batParsed);
 
 		// Return the evaluated result.
-		TCHAR *buf = this->m_bamboo->expr_str(result);
-		strResult = buf;
-		free(buf);
+		TCHAR *pszBuffer = this->m_pBamboo->expr_str(batResult);
+		strResult = pszBuffer;
+		free(pszBuffer);
 	} catch (Bamboo::BambooException& e) {
 		// Return the error encountered.
 		strResult.Format(_T("(%d) %s: %s"), e.error_code(), e.error_type(),
@@ -105,16 +106,16 @@ CString CCommandEdit::GetCurrentExpression() {
  * @return Prompt string.
  */
 CString CCommandEdit::GetPrompt() {
-	return this->m_prompt;
+	return this->m_strPrompt;
 }
 
 /**
  * Sets the prompt string.
  *
- * @param prompt Prompt string.
+ * @param strPrompt Prompt string.
  */
-void CCommandEdit::SetPrompt(CString prompt) {
-	this->m_prompt = prompt;
+void CCommandEdit::SetPrompt(CString strPrompt) {
+	this->m_strPrompt = strPrompt;
 }
 
 BEGIN_MESSAGE_MAP(CCommandEdit, CEdit)

@@ -14,24 +14,28 @@
 
 #include "../resource.h"
 
+/**
+ * An extension of the classic CEdit control to mimic a REPL environment.
+ */
 class CCommandEdit : public CEdit {
 protected:
-	Bamboo::Lisp *m_bamboo;
-	CString m_prompt;
+	Bamboo::Lisp *m_pBamboo;
+	CString m_strPrompt;
 
 	// Expression stuff.
 	void HandleExpression();
 
 public:
+	// Initialization.
 	CCommandEdit();
+	void InitializePrompt(Bamboo::Lisp *pBamboo);
 
 	// Expression operations.
 	CString GetCurrentExpression();
 
 	// Prompt stuff.
-	void InitializePrompt(Bamboo::Lisp *bamboo);
 	CString GetPrompt();
-	void SetPrompt(CString prompt);
+	void SetPrompt(CString strPrompt);
 
 // Overrides
 	// ClassWizard generated virtual function overrides

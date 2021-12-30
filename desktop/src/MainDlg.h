@@ -14,13 +14,14 @@
 
 #include "../resource.h"
 #include "CommandEdit.h"
+#include "EnvironmentList.h"
 
 /**
  * Application's main dialog window.
  */
 class CMainDlg : public CDialog {
 protected:
-	Bamboo::Lisp *m_bamboo;
+	Bamboo::Lisp *m_pBamboo;
 	CMenu m_menu;
 	HACCEL m_hAccel;
 
@@ -33,6 +34,7 @@ public:
 // Dialog Data
 	//{{AFX_DATA(CMainDlg)
 	enum { IDD = IDD_DESKTOP_DIALOG };
+	CEnvironmentList	m_lstEnvironment;
 	CCommandEdit	m_edtCommand;
 	//}}AFX_DATA
 
