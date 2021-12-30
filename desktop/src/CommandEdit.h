@@ -13,12 +13,14 @@
 #endif // _MSC_VER > 1000
 
 #include "../resource.h"
+#include "EnvironmentList.h"
 
 /**
  * An extension of the classic CEdit control to mimic a REPL environment.
  */
 class CCommandEdit : public CEdit {
 protected:
+	CEnvironmentList *m_plstEnvironment;
 	Bamboo::Lisp *m_pBamboo;
 	CString m_strPrompt;
 
@@ -28,7 +30,8 @@ protected:
 public:
 	// Initialization.
 	CCommandEdit();
-	void InitializePrompt(Bamboo::Lisp *pBamboo);
+	void InitializePrompt(Bamboo::Lisp *pBamboo,
+		CEnvironmentList& lstEnvironment);
 
 	// Expression operations.
 	CString GetCurrentExpression();

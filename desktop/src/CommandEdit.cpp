@@ -32,11 +32,14 @@ CCommandEdit::~CCommandEdit() {
  * Initializes the REPL prompt. Must be called whenever the application is
  * ready to start accepting commands.
  *
- * @param pBamboo Bamboo Lisp instance.
+ * @param pBamboo        Bamboo Lisp instance.
+ * @param lstEnvironment Environment list object.
  */
-void CCommandEdit::InitializePrompt(Bamboo::Lisp *pBamboo) {
-	// Grab our Bamboo instance.
+void CCommandEdit::InitializePrompt(Bamboo::Lisp *pBamboo,
+									CEnvironmentList& lstEnvironment) {
+	// Grab our Bamboo instance and environment list control.
 	this->m_pBamboo = pBamboo;
+	this->m_plstEnvironment = &lstEnvironment;
 
 	// Append the prompt in the control.
 	this->ReplaceSel((LPCTSTR)this->GetPrompt(), false);
@@ -60,6 +63,9 @@ void CCommandEdit::HandleExpression() {
 		TCHAR *pszBuffer = this->m_pBamboo->expr_str(batResult);
 		strResult = pszBuffer;
 		free(pszBuffer);
+
+		// Update the environment list.
+		m_plstEnvironment->Refresh();
 	} catch (Bamboo::BambooException& e) {
 		// Return the error encountered.
 		strResult.Format(_T("(%d) %s: %s"), e.error_code(), e.error_type(),

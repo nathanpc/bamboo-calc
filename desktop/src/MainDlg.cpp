@@ -44,7 +44,7 @@ void CMainDlg::InitializeEnvironment() {
 	
 	// Initialize our prompt and variables list.
 	m_lstEnvironment.InitializeList(m_pBamboo);
-	m_edtCommand.InitializePrompt(m_pBamboo);
+	m_edtCommand.InitializePrompt(m_pBamboo, m_lstEnvironment);
 
 }
 

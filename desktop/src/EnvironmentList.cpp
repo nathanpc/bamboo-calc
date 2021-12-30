@@ -72,13 +72,15 @@ void CEnvironmentList::Refresh() {
 	// Clear the list.
 	Clear();
 	
-	// Populate the list.
-	std::vector<pair_t> items = m_pBamboo->env().list(
-		Bamboo::Environment::ListFilter::FilterNothing);
-		//Bamboo::Environment::ListFilter::FilterUserGenerated);
-	for (size_t i = 0; i < items.size(); i++) {
-		AddItem(items[i]);
-	}
+	// Get the items to populate the list with.
+	std::vector<pair_t> vItems = m_pBamboo->env().list(
+		Bamboo::Environment::ListFilter::FilterUserGenerated);
+
+	// Populate the list without redrawing to make it faster.
+	SetRedraw(false);
+	for (std::vector<pair_t>::iterator it = vItems.begin(); it != vItems.end(); ++it)
+		AddItem(*it);
+	SetRedraw(true);
 }
 
 /**
@@ -94,7 +96,7 @@ void CEnvironmentList::AddItem(pair_t bprItem) {
 	lvi.iItem    = GetItemCount();
 	lvi.iSubItem = 0;
 	lvi.pszText  = *bprItem.atom[0].value.symbol;
-	//lvi.iImage = i%8;
+	//lvi.iImage = i;
 	InsertItem(&lvi);
 
 	// Add the value detail.
