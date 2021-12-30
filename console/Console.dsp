@@ -89,14 +89,6 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=..\lib\lisp\src\bamboo.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\lib\lisp\src\BambooWrapper.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\src\main.cpp
 # End Source File
 # Begin Source File
@@ -109,20 +101,32 @@ SOURCE=.\src\StdAfx.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\lib\lisp\src\bamboo.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\lib\lisp\src\BambooWrapper.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\src\StdAfx.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"
 
 # PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
+# End Group
+# Begin Group "Bamboo"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\lib\lisp\src\bamboo.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\lib\lisp\src\bamboo.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\lib\lisp\src\BambooWrapper.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\lib\lisp\src\BambooWrapper.h
+# End Source File
 # End Group
 # End Target
 # End Project
