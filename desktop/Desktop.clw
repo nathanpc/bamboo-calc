@@ -16,10 +16,10 @@ ResourceCount=7
 Resource1=IDD_ABOUTBOX
 Resource2=IDR_MAINFRAME
 Resource3=IDD_DESKTOP_DIALOG
-Resource4=IDD_DESKTOP_DIALOG (English (U.S.))
+Resource4=IDD_ABOUTBOX (English (U.S.))
 Class4=CCommandEdit
 Resource5=IDR_MENU_MAIN
-Resource6=IDD_ABOUTBOX (English (U.S.))
+Resource6=IDD_DESKTOP_DIALOG (English (U.S.))
 Class5=CEnvironmentList
 Resource7=IDR_ACCEL_MAIN
 
