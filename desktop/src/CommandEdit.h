@@ -20,6 +20,7 @@
  */
 class CCommandEdit : public CEdit {
 protected:
+	CDialog *m_pdlgParent;
 	CEnvironmentList *m_plstEnvironment;
 	Bamboo::Lisp *m_pBamboo;
 	CString m_strPrompt;
@@ -30,7 +31,7 @@ protected:
 public:
 	// Initialization.
 	CCommandEdit();
-	void InitializePrompt(Bamboo::Lisp *pBamboo,
+	void InitializePrompt(CDialog *pdlgParent, Bamboo::Lisp *pBamboo,
 		CEnvironmentList& lstEnvironment);
 
 	// Expression operations.

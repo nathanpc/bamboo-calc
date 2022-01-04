@@ -193,6 +193,14 @@ SOURCE=..\lib\lisp\src\BambooWrapper.cpp
 
 SOURCE=..\lib\lisp\src\BambooWrapper.h
 # End Source File
+# Begin Source File
+
+SOURCE=..\lib\lisp\repl\functions.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\lib\lisp\repl\functions.h
+# End Source File
 # End Group
 # End Target
 # End Project

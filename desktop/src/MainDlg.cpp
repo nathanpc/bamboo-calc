@@ -33,9 +33,14 @@ CMainDlg::CMainDlg(CWnd* pParent) : CResizableDialog(CMainDlg::IDD, pParent) {
  * Initializes the Bamboo Lisp interpreter environment in the window.
  */
 void CMainDlg::InitializeEnvironment() {
-	// Initialize the Bamboo Lisp interpreter environment.
 	try {
+		// Initialize the Bamboo Lisp interpreter environment.
 		m_pBamboo = new Bamboo::Lisp();
+
+		// Populate the environment with built-ins from the REPL.
+		bamboo_error_t err = repl_populate_builtins(&m_pBamboo->env().env());
+		IF_BAMBOO_ERROR(err)
+			throw Bamboo::BambooException(err);
 	} catch (Bamboo::BambooException& e) {
 		MessageBox(e.what(), _T("Unable to initialize Bamboo environment"),
 			MB_OK | MB_ICONERROR);
@@ -44,7 +49,7 @@ void CMainDlg::InitializeEnvironment() {
 	
 	// Initialize our prompt and variables list.
 	m_lstEnvironment.InitializeList(m_pBamboo);
-	m_edtCommand.InitializePrompt(m_pBamboo, m_lstEnvironment);
+	m_edtCommand.InitializePrompt(this, m_pBamboo, m_lstEnvironment);
 
 }
 
