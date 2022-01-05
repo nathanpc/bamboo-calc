@@ -55,7 +55,15 @@ void CCommandEdit::InitializePrompt(CDialog *pdlgParent,
  */
 void CCommandEdit::HandleExpression() {
 	// Get the expression and go to the next line.
-	CString strExpression = GetCurrentExpression();
+	ExecuteExpression(GetCurrentExpression());
+}
+
+/**
+ * Executes an expression in the interpreter.
+ *
+ * @param strExpression Expression to be executed.
+ */
+void CCommandEdit::ExecuteExpression(CString& strExpression) {
 	ReplaceSel(_T("\r\n"), false);
 
 	CString strResult;

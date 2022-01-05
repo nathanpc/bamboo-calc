@@ -61,6 +61,16 @@ void CMainDlg::ShowAboutDialog() {
 	dlgAbout.DoModal();
 }
 
+/**
+ * Run the code in the editor.
+ */
+void CMainDlg::RunCode() {
+	CString strCode;
+
+	m_edtEditor.GetWindowText(strCode);
+	m_edtCommand.ExecuteExpression(strCode);
+}
+
 BEGIN_MESSAGE_MAP(CMainDlg, CResizableDialog)
 	//{{AFX_MSG_MAP(CMainDlg)
 	ON_WM_SYSCOMMAND()
@@ -72,6 +82,7 @@ BEGIN_MESSAGE_MAP(CMainDlg, CResizableDialog)
 	ON_WM_DESTROY()
 	ON_COMMAND(IDA_ACCEL_QUIT, OnMenuFileExit)
 	ON_COMMAND(IDA_ACCEL_HELP, OnMenuHelpAbout)
+	ON_COMMAND(IDM_MENU_RUN, OnMenuRun)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -81,6 +92,7 @@ END_MESSAGE_MAP()
 void CMainDlg::DoDataExchange(CDataExchange* pDX) {
 	CResizableDialog::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CMainDlg)
+	DDX_Control(pDX, IDC_RICH_EDITOR, m_edtEditor);
 	DDX_Control(pDX, IDC_LIST_ENV, m_lstEnvironment);
 	DDX_Control(pDX, IDC_EDIT_COMMAND, m_edtCommand);
 	//}}AFX_DATA_MAP
@@ -134,8 +146,9 @@ BOOL CMainDlg::OnInitDialog() {
 		MAKEINTRESOURCE(IDR_ACCEL_MAIN));
 
 	// Setup the anchors for resizing.
-	AddAnchor(IDC_STATIC_SCRATCHPAD, TOP_LEFT, BOTTOM_RIGHT);
-	AddAnchor(IDC_EDIT_COMMAND, TOP_LEFT, BOTTOM_RIGHT);
+	AddAnchor(IDC_RICH_EDITOR, TOP_LEFT, BOTTOM_RIGHT);
+	AddAnchor(IDC_STATIC_SCRATCHPAD, BOTTOM_LEFT, BOTTOM_RIGHT);
+	AddAnchor(IDC_EDIT_COMMAND, BOTTOM_LEFT, BOTTOM_RIGHT);
 	AddAnchor(IDC_STATIC_ENV, TOP_RIGHT, BOTTOM_RIGHT);
 	AddAnchor(IDC_LIST_ENV, TOP_RIGHT, BOTTOM_RIGHT);
 
@@ -243,4 +256,11 @@ void CMainDlg::OnMenuFileExit() {
  */
 void CMainDlg::OnMenuHelpAbout() {
 	ShowAboutDialog();
+}
+
+/**
+ * Run menu item command event handler.
+ */
+void CMainDlg::OnMenuRun() {
+	RunCode();
 }

@@ -138,6 +138,15 @@ SOURCE=.\resource.h
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=.\src\CodeEditor.cpp
+# ADD CPP /I ".."
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\CodeEditor.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\CommandEdit.cpp
 # ADD CPP /I ".."
 # End Source File

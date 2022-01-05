@@ -47,9 +47,13 @@ BEGIN
     GROUPBOX        "Environment",IDC_STATIC_ENV,298,0,165,260
     CONTROL         "List2",IDC_LIST_ENV,"SysListView32",LVS_REPORT | 
                     LVS_SINGLESEL | WS_BORDER | WS_TABSTOP,303,10,155,245
-    GROUPBOX        "Scratch Pad",IDC_STATIC_SCRATCHPAD,3,0,290,260
-    EDITTEXT        IDC_EDIT_COMMAND,8,10,280,245,ES_MULTILINE | 
+    GROUPBOX        "Scratch Pad",IDC_STATIC_SCRATCHPAD,3,180,290,80
+    EDITTEXT        IDC_EDIT_COMMAND,8,190,280,65,ES_MULTILINE | 
                     ES_WANTRETURN | WS_VSCROLL
+    CONTROL         "",IDC_RICH_EDITOR,"RICHEDIT",ES_MULTILINE | 
+                    ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_WANTRETURN | 
+                    WS_BORDER | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP,3,5,289,
+                    172
 END
 
 
@@ -204,6 +208,7 @@ BEGIN
     BEGIN
         MENUITEM "E&xit\tCtrl+Q",               IDM_MENU_FILE_EXIT
     END
+    MENUITEM "&Run",                        IDM_MENU_RUN
     POPUP "&Help"
     BEGIN
         MENUITEM "&About\tF1",                  IDM_MENU_HELP_ABOUT

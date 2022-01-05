@@ -56,6 +56,9 @@ BOOL CBambooApp::InitInstance() {
 	Enable3dControlsStatic();  // Call this when linking to MFC statically
 #endif
 
+	// Initialize Rich Edit.
+	AfxInitRichEdit();
+
 	// Initialize the main dialog window.
 	CMainDlg dlg;
 	m_pMainWnd = &dlg;

@@ -15,6 +15,7 @@
 #include "../resource.h"
 #include "CommandEdit.h"
 #include "EnvironmentList.h"
+#include "CodeEditor.h"
 
 /**
  * Application's main dialog window.
@@ -28,12 +29,16 @@ protected:
 	// Initialization stuff.
 	void InitializeEnvironment();
 
+	// Do things.
+	void RunCode();
+
 public:
 	CMainDlg(CWnd* pParent = NULL);
 
 // Dialog Data
 	//{{AFX_DATA(CMainDlg)
 	enum { IDD = IDD_DESKTOP_DIALOG };
+	CCodeEditor	m_edtEditor;
 	CEnvironmentList	m_lstEnvironment;
 	CCommandEdit	m_edtCommand;
 	//}}AFX_DATA
@@ -65,6 +70,7 @@ protected:
 	afx_msg void OnMenuFileExit();
 	afx_msg void OnMenuHelpAbout();
 	afx_msg void OnDestroy();
+	afx_msg void OnMenuRun();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

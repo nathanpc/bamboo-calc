@@ -36,6 +36,7 @@ public:
 
 	// Expression operations.
 	CString GetCurrentExpression();
+	void ExecuteExpression(CString& strExpression);
 
 	// Prompt stuff.
 	CString GetPrompt();

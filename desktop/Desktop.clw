@@ -3,11 +3,11 @@
 [General Info]
 Version=1
 LastClass=CMainDlg
-LastTemplate=CListCtrl
+LastTemplate=CRichEditCtrl
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "Desktop.h"
 
-ClassCount=5
+ClassCount=6
 Class1=CBambooApp
 Class2=CMainDlg
 Class3=CAboutDlg
@@ -16,11 +16,12 @@ ResourceCount=7
 Resource1=IDD_ABOUTBOX
 Resource2=IDR_MAINFRAME
 Resource3=IDD_DESKTOP_DIALOG
-Resource4=IDD_ABOUTBOX (English (U.S.))
+Resource4=IDD_DESKTOP_DIALOG (English (U.S.))
 Class4=CCommandEdit
 Resource5=IDR_MENU_MAIN
-Resource6=IDD_DESKTOP_DIALOG (English (U.S.))
+Resource6=IDD_ABOUTBOX (English (U.S.))
 Class5=CEnvironmentList
+Class6=CCodeEditor
 Resource7=IDR_ACCEL_MAIN
 
 [CLS:CBambooApp]
@@ -33,8 +34,8 @@ Filter=N
 Type=0
 HeaderFile=src\maindlg.h
 ImplementationFile=src\maindlg.cpp
-BaseClass=CDialog
-LastObject=CMainDlg
+BaseClass=CResizableDialog
+LastObject=IDM_MENU_RUN
 Filter=D
 VirtualFilter=dWC
 
@@ -65,11 +66,12 @@ Class=CMainDlg
 [DLG:IDD_DESKTOP_DIALOG (English (U.S.))]
 Type=1
 Class=CMainDlg
-ControlCount=4
+ControlCount=5
 Control1=IDC_STATIC_ENV,button,1342177287
 Control2=IDC_LIST_ENV,SysListView32,1350631429
 Control3=IDC_STATIC_SCRATCHPAD,button,1342177287
 Control4=IDC_EDIT_COMMAND,edit,1352732676
+Control5=IDC_RICH_EDITOR,RICHEDIT,1353781444
 
 [DLG:IDD_ABOUTBOX (English (U.S.))]
 Type=1
@@ -93,8 +95,9 @@ LastObject=CCommandEdit
 Type=1
 Class=CMainDlg
 Command1=IDM_MENU_FILE_EXIT
-Command2=IDM_MENU_HELP_ABOUT
-CommandCount=2
+Command2=IDM_MENU_RUN
+Command3=IDM_MENU_HELP_ABOUT
+CommandCount=3
 
 [ACL:IDR_ACCEL_MAIN]
 Type=1
@@ -110,4 +113,11 @@ ImplementationFile=src\EnvironmentList.cpp
 BaseClass=CListCtrl
 Filter=W
 LastObject=CEnvironmentList
+
+[CLS:CCodeEditor]
+Type=0
+HeaderFile=src\CodeEditor.h
+ImplementationFile=src\CodeEditor.cpp
+BaseClass=CRichEditCtrl
+Filter=W
 
