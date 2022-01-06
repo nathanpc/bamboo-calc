@@ -64,13 +64,20 @@ void CCommandEdit::HandleExpression() {
  * @param strExpression Expression to be executed.
  */
 void CCommandEdit::ExecuteExpression(CString& strExpression) {
-	ReplaceSel(_T("\r\n"), false);
-
 	CString strResult;
+	LPCTSTR pszEnd = (LPCTSTR)strExpression;
+
+	ReplaceSel(_T("\r\n"), false);
 	try {
-		// Parse and evaluate the expression.
-		atom_t batParsed = m_pBamboo->parse_expr((LPCTSTR)strExpression);
-		atom_t batResult = m_pBamboo->eval_expr(batParsed);
+		atom_t batParsed;
+		atom_t batResult;
+
+		// Check if we've parsed all of the statements in the expression.
+		while (*pszEnd != _T('\0')) {
+			// Parse and evaluate the expression.
+			batParsed = m_pBamboo->parse_expr(pszEnd, &pszEnd);
+			batResult = m_pBamboo->eval_expr(batParsed);
+		}
 
 		// Return the evaluated result.
 		TCHAR *pszBuffer = m_pBamboo->expr_str(batResult);
