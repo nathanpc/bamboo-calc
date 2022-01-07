@@ -1,6 +1,9 @@
-// ChildView.h : interface of the CChildView class
-//
-/////////////////////////////////////////////////////////////////////////////
+/**
+ * ChildView.h
+ * Main window of the application.
+ *
+ * @author Nathan Campos <nathan@innoveworkshop.com>
+ */
 
 #if !defined(AFX_CHILDVIEW_H__89C5681C_2943_4816_8CD8_128B99CEF8E5__INCLUDED_)
 #define AFX_CHILDVIEW_H__89C5681C_2943_4816_8CD8_128B99CEF8E5__INCLUDED_
@@ -11,9 +14,9 @@
 
 #include "../../desktop/src/CommandEdit.h"
 
-/////////////////////////////////////////////////////////////////////////////
-// CChildView window
-
+/**
+ * Main window of the application.
+ */
 class CChildView : public CWnd {
 protected:
 	CCommandEdit m_edtCommand;
@@ -21,7 +24,6 @@ protected:
 	CCeCommandBar *m_pwndCommandBar;
 	env_t m_pEnv;
 
-// Construction
 public:
 	CChildView();
 

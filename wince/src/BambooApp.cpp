@@ -1,11 +1,13 @@
-// Bamboo.cpp : Defines the class behaviors for the application.
-//
+/**
+ * BambooApp.cpp
+ * Bamboo Lisp IDE for Windows CE.
+ *
+ * @author Nathan Campos <nathan@innoveworkshop.com>
+ */
 
 #include "stdafx.h"
 #include "BambooApp.h"
-
 #include "MainFrm.h"
-
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -13,8 +15,6 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-/////////////////////////////////////////////////////////////////////////////
-// CBambooApp
 
 BEGIN_MESSAGE_MAP(CBambooApp, CWinApp)
 	//{{AFX_MSG_MAP(CBambooApp)
@@ -25,70 +25,54 @@ BEGIN_MESSAGE_MAP(CBambooApp, CWinApp)
 	// Standard file based document commands
 END_MESSAGE_MAP()
 
-/////////////////////////////////////////////////////////////////////////////
-// CBambooApp construction
-
-CBambooApp::CBambooApp()
-	: CWinApp()
-{
+/**
+ * Application's constructor.
+ */
+CBambooApp::CBambooApp() : CWinApp() {
 	// TODO: add construction code here,
 	// Place all significant initialization in InitInstance
 }
 
-/////////////////////////////////////////////////////////////////////////////
-// The one and only CBambooApp object
-
+/**
+ * The one and only application object.
+ */
 CBambooApp theApp;
 
-/////////////////////////////////////////////////////////////////////////////
-// CBambooApp initialization
-
-BOOL CBambooApp::InitInstance()
-{
+/**
+ * Initializes the application instance.
+ *
+ * @return TRUE if everything worked.
+ */
+BOOL CBambooApp::InitInstance() {
 	// Standard initialization
 	// If you are not using these features and wish to reduce the size
 	//  of your final executable, you should remove from the following
 	//  the specific initialization routines you do not need.
 
-	// Change the registry key under which our settings are stored.
-	// You should modify this string to be something appropriate
-	// such as the name of your company or organization.
-	SetRegistryKey(_T("Local AppWizard-Generated Applications"));
+	// Set the root registry key.
+	SetRegistryKey(_T("Innove Workshop"));
 
 
 	// To create the main window, this code creates a new frame window
 	// object and then sets it as the application's main window object.
-
 	CMainFrame* pFrame = new CMainFrame;
 	m_pMainWnd = pFrame;
 
-	// create and load the frame with its resources
-
+	// Create and load the frame with its resources.
 	pFrame->LoadFrame(IDR_MAINFRAME,
-		WS_OVERLAPPEDWINDOW | FWS_ADDTOTITLE, NULL,
-		NULL);
-
-
+		WS_OVERLAPPEDWINDOW | FWS_ADDTOTITLE, NULL, NULL);
 
 	// The one and only window has been initialized, so show and update it.
 	pFrame->ShowWindow(m_nCmdShow);
 	pFrame->UpdateWindow();
 
-	return TRUE;
+	return true;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-// CBambooApp message handlers
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-// CAboutDlg dialog used for App About
-
-class CAboutDlg : public CDialog
-{
+/**
+ * About dialog.
+ */
+class CAboutDlg : public CDialog {
 public:
 	CAboutDlg();
 
@@ -111,14 +95,12 @@ protected:
 	DECLARE_MESSAGE_MAP()
 };
 
-CAboutDlg::CAboutDlg() : CDialog(CAboutDlg::IDD)
-{
+CAboutDlg::CAboutDlg() : CDialog(CAboutDlg::IDD) {
 	//{{AFX_DATA_INIT(CAboutDlg)
 	//}}AFX_DATA_INIT
 }
 
-void CAboutDlg::DoDataExchange(CDataExchange* pDX)
-{
+void CAboutDlg::DoDataExchange(CDataExchange* pDX) {
 	CDialog::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CAboutDlg)
 	//}}AFX_DATA_MAP
@@ -130,23 +112,15 @@ BEGIN_MESSAGE_MAP(CAboutDlg, CDialog)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
-// App command to run the dialog
-void CBambooApp::OnAppAbout()
-{
+void CBambooApp::OnAppAbout() {
 	CAboutDlg aboutDlg;
 	aboutDlg.DoModal();
 }
 
-/////////////////////////////////////////////////////////////////////////////
-// CBambooApp commands
-// Added for WCE apps
-
-BOOL CAboutDlg::OnInitDialog() 
-{
+BOOL CAboutDlg::OnInitDialog() {
 	CDialog::OnInitDialog();
 	
 	CenterWindow();
-	
-	return TRUE;  // return TRUE unless you set the focus to a control
+	return true;  // Return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
 }

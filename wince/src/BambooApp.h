@@ -1,5 +1,9 @@
-// Bamboo.h : main header file for the BAMBOO application
-//
+/**
+ * BambooApp.h
+ * Bamboo Lisp IDE for Windows CE.
+ *
+ * @author Nathan Campos <nathan@innoveworkshop.com>
+ */
 
 #if !defined(AFX_BAMBOO_H__B6301BFC_4D2B_4771_B188_925DDFA56785__INCLUDED_)
 #define AFX_BAMBOO_H__B6301BFC_4D2B_4771_B188_925DDFA56785__INCLUDED_
@@ -12,15 +16,12 @@
 	#error include 'stdafx.h' before including this file for PCH
 #endif
 
-#include "../resource.h"       // main symbols
+#include "../resource.h"
 
-/////////////////////////////////////////////////////////////////////////////
-// CBambooApp:
-// See Bamboo.cpp for the implementation of this class
-//
-
-class CBambooApp : public CWinApp
-{
+/**
+ * Bamboo Lisp IDE for Windows CE.
+ */
+class CBambooApp : public CWinApp {
 public:
 	CBambooApp();
 
@@ -40,9 +41,6 @@ public:
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };
-
-
-/////////////////////////////////////////////////////////////////////////////
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft eMbedded Visual C++ will insert additional declarations immediately before the previous line.

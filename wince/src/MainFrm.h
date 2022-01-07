@@ -1,6 +1,9 @@
-// MainFrm.h : interface of the CMainFrame class
-//
-/////////////////////////////////////////////////////////////////////////////
+/**
+ * MainFrm.h
+ * Main frame of the application.
+ *
+ * @author Nathan Campos <nathan@innoveworkshop.com>
+ */
 
 #if !defined(AFX_MAINFRM_H__E56C2CCC_0A45_4BA6_81BA_DC1B9683E17A__INCLUDED_)
 #define AFX_MAINFRM_H__E56C2CCC_0A45_4BA6_81BA_DC1B9683E17A__INCLUDED_
@@ -11,18 +14,19 @@
 
 #include "ChildView.h"
 
-class CMainFrame : public CFrameWnd
-{
+/**
+ * Main frame of the application.
+ */
+class CMainFrame : public CFrameWnd {
+protected:
+	CCeCommandBar m_wndCommandBar;
+	CChildView m_wndView;
+
 public:
 	CMainFrame();
+
 protected: 
 	DECLARE_DYNAMIC(CMainFrame)
-
-// Attributes
-public:
-
-// Operations
-public:
 
 // Overrides
 	// ClassWizard generated virtual function overrides
@@ -39,10 +43,6 @@ public:
 	virtual void Dump(CDumpContext& dc) const;
 #endif
 
-protected:  // control bar embedded members
-	CCeCommandBar	m_wndCommandBar;
-	CChildView    m_wndView;
-
 // Generated message map functions
 protected:
 	//{{AFX_MSG(CMainFrame)
@@ -53,8 +53,6 @@ protected:
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };
-
-/////////////////////////////////////////////////////////////////////////////
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft eMbedded Visual C++ will insert additional declarations immediately before the previous line.
