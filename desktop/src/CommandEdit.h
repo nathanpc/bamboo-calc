@@ -12,7 +12,6 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "../resource.h"
 #include "EnvironmentList.h"
 
 /**
@@ -20,7 +19,11 @@
  */
 class CCommandEdit : public CEdit {
 protected:
+#ifdef _WIN32_WCE
+	CWnd *m_pwndParent;
+#else
 	CDialog *m_pdlgParent;
+#endif  // _WIN32_WCE
 	CEnvironmentList *m_plstEnvironment;
 	CString m_strPrompt;
 	env_t *m_pEnv;
@@ -31,8 +34,13 @@ protected:
 public:
 	// Initialization.
 	CCommandEdit();
+#ifdef _WIN32_WCE
+	void InitializePrompt(CWnd *pwndParent,
+		CEnvironmentList& lstEnvironment, env_t *pEnv);
+#else
 	void InitializePrompt(CDialog *pdlgParent,
 		CEnvironmentList& lstEnvironment, env_t *pEnv);
+#endif  // _WIN32_WCE
 
 	// Expression operations.
 	CString GetCurrentExpression();

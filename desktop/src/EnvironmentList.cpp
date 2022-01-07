@@ -8,7 +8,6 @@
 
 #include "stdafx.h"
 #include "EnvironmentList.h"
-#include <vector>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

@@ -36,11 +36,21 @@ CCommandEdit::~CCommandEdit() {
  * @param lstEnvironment Environment list object.
  * @param pEnv           Bamboo environment pointer.
  */
+#ifdef _WIN32_WCE
+void CCommandEdit::InitializePrompt(CWnd *pwndParent,
+									CEnvironmentList& lstEnvironment,
+									env_t *pEnv) {
+#else
 void CCommandEdit::InitializePrompt(CDialog *pdlgParent,
 									CEnvironmentList& lstEnvironment,
 									env_t *pEnv) {
-	// Grab our parent dialog.
+#endif  // _WIN32_WCE
+	// Grab our parent window.
+#ifdef _WIN32_WCE
+	m_pwndParent = pwndParent;
+#else
 	m_pdlgParent = pdlgParent;
+#endif  // _WIN32_WCE
 
 	// Grab our Bamboo instance and environment list control.
 	m_pEnv = pEnv;
@@ -87,7 +97,10 @@ void CCommandEdit::ExecuteExpression(CString& strExpression) {
 		IF_BAMBOO_ERROR(err) {
 			// Check if the user just wants to quit the application.
 			if (err == (bamboo_error_t)BAMBOO_REPL_QUIT) {
+#ifdef _WIN32_WCE
+#else
 				m_pdlgParent->EndDialog(0);
+#endif  // _WIN32_WCE
 				return;
 			}
 

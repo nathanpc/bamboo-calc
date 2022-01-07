@@ -3,35 +3,36 @@
 //      are changed infrequently
 //
 
-#if !defined(AFX_STDAFX_H__94861CC9_CD07_40CA_9282_2E73D5117565__INCLUDED_)
-#define AFX_STDAFX_H__94861CC9_CD07_40CA_9282_2E73D5117565__INCLUDED_
+#if !defined(AFX_STDAFX_H__3AC5D61D_FCB7_4BDA_B606_84E84C9D6F13__INCLUDED_)
+#define AFX_STDAFX_H__3AC5D61D_FCB7_4BDA_B606_84E84C9D6F13__INCLUDED_
 
-#if _MSC_VER > 1000
+#if _MSC_VER >= 1000
 #pragma once
-#endif // _MSC_VER > 1000
+#endif // _MSC_VER >= 1000
+
+#if (_WIN32_WCE <= 200)
+#error : This project does not support MFCCE 2.00 or earlier, because it requires CControlBar, available only in MFCCE 2.01 or later
+#endif
+
 
 #define VC_EXTRALEAN		// Exclude rarely-used stuff from Windows headers
 
 #include <afxwin.h>         // MFC core and standard components
 #include <afxext.h>         // MFC extensions
-#include <afxdisp.h>        // MFC Automation classes
+
+#if defined(_WIN32_WCE) && (_WIN32_WCE >= 211) && (_AFXDLL)
 #include <afxdtctl.h>		// MFC support for Internet Explorer 4 Common Controls
+#endif
+
 #ifndef _AFX_NO_AFXCMN_SUPPORT
 #include <afxcmn.h>			// MFC support for Windows Common Controls
 #endif // _AFX_NO_AFXCMN_SUPPORT
-
 
 // Bamboo Lisp interpreter.
 #include "../../lib/lisp/src/bamboo.h"
 #include "../../lib/lisp/repl/functions.h"
 
-#ifndef _WIN32_WCE
-// Resizable library.
-#include "../../lib/ResizableLib/ResizableDialog.h"
-#endif  /// _WIN32_WCE
-
-
 //{{AFX_INSERT_LOCATION}}
-// Microsoft Visual C++ will insert additional declarations immediately before the previous line.
+// Microsoft eMbedded Visual C++ will insert additional declarations immediately before the previous line.
 
-#endif // !defined(AFX_STDAFX_H__94861CC9_CD07_40CA_9282_2E73D5117565__INCLUDED_)
+#endif // !defined(AFX_STDAFX_H__3AC5D61D_FCB7_4BDA_B606_84E84C9D6F13__INCLUDED_)

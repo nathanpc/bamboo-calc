@@ -13,8 +13,6 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "../resource.h"
-
 /**
  * An extension of the CListCtrl that automatically displays the state of the
  * environment in the Bamboo Lisp interpreter instance.
