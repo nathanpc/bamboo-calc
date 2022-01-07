@@ -22,8 +22,8 @@ class CCommandEdit : public CEdit {
 protected:
 	CDialog *m_pdlgParent;
 	CEnvironmentList *m_plstEnvironment;
-	Bamboo::Lisp *m_pBamboo;
 	CString m_strPrompt;
+	env_t *m_pEnv;
 
 	// Expression stuff.
 	void HandleExpression();
@@ -31,8 +31,8 @@ protected:
 public:
 	// Initialization.
 	CCommandEdit();
-	void InitializePrompt(CDialog *pdlgParent, Bamboo::Lisp *pBamboo,
-		CEnvironmentList& lstEnvironment);
+	void InitializePrompt(CDialog *pdlgParent,
+		CEnvironmentList& lstEnvironment, env_t *pEnv);
 
 	// Expression operations.
 	CString GetCurrentExpression();

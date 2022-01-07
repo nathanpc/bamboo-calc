@@ -21,7 +21,7 @@
  */
 class CEnvironmentList : public CListCtrl {
 protected:
-	Bamboo::Lisp *m_pBamboo;
+	env_t *m_pEnv;
 
 	// Setup and configuration.
 	void SetupColumns();
@@ -29,7 +29,7 @@ protected:
 public:
 	// Initialization.
 	CEnvironmentList();
-	void InitializeList(Bamboo::Lisp *pBamboo);
+	void InitializeList(env_t *pEnv);
 
 	// Items and attributes.
 	void Clear();

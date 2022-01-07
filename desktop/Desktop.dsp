@@ -196,14 +196,6 @@ SOURCE=..\lib\lisp\src\bamboo.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\lib\lisp\src\BambooWrapper.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\lib\lisp\src\BambooWrapper.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\lib\lisp\repl\functions.c
 # End Source File
 # Begin Source File

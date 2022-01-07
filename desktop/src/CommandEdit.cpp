@@ -33,17 +33,17 @@ CCommandEdit::~CCommandEdit() {
  * ready to start accepting commands.
  *
  * @param pdlgParent     Parent dialog.
- * @param pBamboo        Bamboo Lisp instance.
  * @param lstEnvironment Environment list object.
+ * @param pEnv           Bamboo environment pointer.
  */
 void CCommandEdit::InitializePrompt(CDialog *pdlgParent,
-									Bamboo::Lisp *pBamboo,
-									CEnvironmentList& lstEnvironment) {
+									CEnvironmentList& lstEnvironment,
+									env_t *pEnv) {
 	// Grab our parent dialog.
 	m_pdlgParent = pdlgParent;
 
 	// Grab our Bamboo instance and environment list control.
-	m_pBamboo = pBamboo;
+	m_pEnv = pEnv;
 	m_plstEnvironment = &lstEnvironment;
 
 	// Append the prompt in the control.
@@ -66,36 +66,45 @@ void CCommandEdit::HandleExpression() {
 void CCommandEdit::ExecuteExpression(CString& strExpression) {
 	CString strResult;
 	LPCTSTR pszEnd = (LPCTSTR)strExpression;
+	atom_t batParsed;
+	atom_t batResult;
+	bamboo_error_t err;
 
 	ReplaceSel(_T("\r\n"), false);
-	try {
-		atom_t batParsed;
-		atom_t batResult;
 
-		// Check if we've parsed all of the statements in the expression.
-		while (*pszEnd != _T('\0')) {
-			// Parse and evaluate the expression.
-			batParsed = m_pBamboo->parse_expr(pszEnd, &pszEnd);
-			batResult = m_pBamboo->eval_expr(batParsed);
+	// Check if we've parsed all of the statements in the expression.
+	while (*pszEnd != _T('\0')) {
+		// Parse the user's input.
+		err = bamboo_parse_expr(pszEnd, &pszEnd, &batParsed);
+		IF_BAMBOO_ERROR(err) {
+			// Return the error encountered.
+			strResult.Format(_T("(%d) %s"), err, bamboo_error_detail());
+			continue;
+		}
+		
+		// Evaluate the parsed expression.
+		err = bamboo_eval_expr(batParsed, *m_pEnv, &batResult);
+		IF_BAMBOO_ERROR(err) {
+			// Check if the user just wants to quit the application.
+			if (err == (bamboo_error_t)BAMBOO_REPL_QUIT) {
+				m_pdlgParent->EndDialog(0);
+				return;
+			}
+
+			// Return the error encountered.
+			strResult.Format(_T("(%d) %s"), err, bamboo_error_detail());
+
+			continue;
 		}
 
 		// Return the evaluated result.
-		TCHAR *pszBuffer = m_pBamboo->expr_str(batResult);
+		TCHAR *pszBuffer;
+		bamboo_expr_str(&pszBuffer, batResult);
 		strResult = pszBuffer;
 		free(pszBuffer);
 
 		// Update the environment list.
 		m_plstEnvironment->Refresh();
-	} catch (Bamboo::BambooException& e) {
-		// Check if the user just wants to quit the application.
-		if (e.error_code() == (bamboo_error_t)BAMBOO_REPL_QUIT) {
-			m_pdlgParent->EndDialog(0);
-			return;
-		}
-
-		// Return the error encountered.
-		strResult.Format(_T("(%d) %s: %s"), e.error_code(), e.error_type(),
-			e.error_detail());
 	}
 
 	// Show the result of the evaluated expression.

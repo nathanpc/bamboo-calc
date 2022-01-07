@@ -22,7 +22,7 @@
 
 
 // Bamboo Lisp interpreter.
-#include "../../lib/lisp/src/BambooWrapper.h"
+#include "../../lib/lisp/src/bamboo.h"
 #include "../../lib/lisp/repl/functions.h"
 
 // Resizable library.

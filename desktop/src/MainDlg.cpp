@@ -33,23 +33,29 @@ CMainDlg::CMainDlg(CWnd* pParent) : CResizableDialog(CMainDlg::IDD, pParent) {
  * Initializes the Bamboo Lisp interpreter environment in the window.
  */
 void CMainDlg::InitializeEnvironment() {
-	try {
-		// Initialize the Bamboo Lisp interpreter environment.
-		m_pBamboo = new Bamboo::Lisp();
+	bamboo_error_t err;
 
-		// Populate the environment with built-ins from the REPL.
-		bamboo_error_t err = repl_populate_builtins(&m_pBamboo->env().env());
-		IF_BAMBOO_ERROR(err)
-			throw Bamboo::BambooException(err);
-	} catch (Bamboo::BambooException& e) {
-		MessageBox(e.what(), _T("Unable to initialize Bamboo environment"),
+	// Initialize the Bamboo Lisp interpreter environment.
+	err = bamboo_init(&m_pEnv);
+	IF_BAMBOO_ERROR(err) {
+		MessageBox(bamboo_error_detail(),
+			_T("Unable to initialize Bamboo environment"),
 			MB_OK | MB_ICONERROR);
-		ExitProcess(static_cast<unsigned int>(e.error_code()));
+		ExitProcess(static_cast<unsigned int>(err));
+	}
+
+	// Populate the environment with built-ins from the REPL.
+	err = repl_populate_builtins(&m_pEnv);
+	IF_BAMBOO_ERROR(err) {
+		MessageBox(bamboo_error_detail(),
+			_T("Unable to initialize Bamboo environment"),
+			MB_OK | MB_ICONERROR);
+		ExitProcess(static_cast<unsigned int>(err));
 	}
 	
 	// Initialize our prompt and variables list.
-	m_lstEnvironment.InitializeList(m_pBamboo);
-	m_edtCommand.InitializePrompt(this, m_pBamboo, m_lstEnvironment);
+	m_lstEnvironment.InitializeList(&m_pEnv);
+	m_edtCommand.InitializePrompt(this, m_lstEnvironment, &m_pEnv);
 
 }
 
@@ -238,7 +244,15 @@ void CMainDlg::OnClose() {
 void CMainDlg::OnDestroy() {
 	// Clean up our allocations.
 	VERIFY(DestroyAcceleratorTable(m_hAccel));
-	delete this->m_pBamboo;
+	
+	// Clean up Bamboo.
+	bamboo_error_t err = bamboo_destroy(&m_pEnv);
+	IF_BAMBOO_ERROR(err) {
+		MessageBox(bamboo_error_detail(),
+			_T("Unable to initialize Bamboo environment"),
+			MB_OK | MB_ICONERROR);
+		ExitProcess(static_cast<unsigned int>(err));
+	}
 	
 	// Continue destroying the window.
 	CResizableDialog::OnDestroy();

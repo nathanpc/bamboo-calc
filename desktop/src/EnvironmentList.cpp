@@ -45,11 +45,11 @@ void CEnvironmentList::SetupColumns() {
  * Initializes the environment list and associates an interpreter instance
  * with the control.
  *
- * @param pBamboo Bamboo Lisp instance.
+ * @param pEnv Bamboo environment pointer.
  */
-void CEnvironmentList::InitializeList(Bamboo::Lisp *pBamboo) {
+void CEnvironmentList::InitializeList(env_t *pEnv) {
 	// Associate the interpreter instance.
-	m_pBamboo = pBamboo;
+	m_pEnv = pEnv;
 
 	// Setup and populate the list.
 	SetupColumns();
@@ -71,15 +71,32 @@ void CEnvironmentList::Clear() {
 void CEnvironmentList::Refresh() {
 	// Clear the list.
 	Clear();
-	
-	// Get the items to populate the list with.
-	std::vector<pair_t> vItems = m_pBamboo->env().list(
-		Bamboo::Environment::ListFilter::FilterUserGenerated);
 
 	// Populate the list without redrawing to make it faster.
 	SetRedraw(false);
-	for (std::vector<pair_t>::iterator it = vItems.begin(); it != vItems.end(); ++it)
-		AddItem(*it);
+
+	// Iterate over the symbols in the environment list.
+	env_t current = cdr(*m_pEnv);
+	while (!nilp(current)) {
+		atom_t item = car(current);
+		atom_type_t item_type = cdr(item).type;
+
+		// Filter out built-ins.
+		if (item_type == ATOM_TYPE_BUILTIN)
+			goto next_item;
+
+		// Create a pair for the symbol and its value.
+		pair_t pair;
+		pair.atom[0] = car(item);
+		pair.atom[1] = cdr(item);
+		AddItem(pair);
+
+next_item:
+		// Go to the next item.
+		current = cdr(current);
+	}
+
+	// Start redrawing the control.
 	SetRedraw(true);
 }
 
@@ -100,7 +117,8 @@ void CEnvironmentList::AddItem(pair_t bprItem) {
 	InsertItem(&lvi);
 
 	// Add the value detail.
-	TCHAR *pszValue = m_pBamboo->expr_str(bprItem.atom[1]);
+	TCHAR *pszValue;
+	bamboo_expr_str(&pszValue, bprItem.atom[1]);
 	lvi.iSubItem = 1;
 	lvi.pszText  = pszValue;
 	SetItem(&lvi);

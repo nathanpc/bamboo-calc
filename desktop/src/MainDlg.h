@@ -22,9 +22,9 @@
  */
 class CMainDlg : public CResizableDialog {
 protected:
-	Bamboo::Lisp *m_pBamboo;
 	CMenu m_menu;
 	HACCEL m_hAccel;
+	env_t m_pEnv;
 
 	// Initialization stuff.
 	void InitializeEnvironment();
